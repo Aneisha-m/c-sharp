@@ -389,6 +389,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Http_Server_99", "Http_Serv
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Args_01", "Args_01\Args_01.csproj", "{5B2C883E-9E71-4557-97D2-4093E93BC2A4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entity_06_Northwind_CRUD", "Entity_06_Northwind_Customers_Orders\Entity_06_Northwind_CRUD.csproj", "{42369464-BB65-4521-A2A9-A1EE91D79A78}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entity_05_Northwind_CRUD", "Entity_06_Northwind_CRUD\Entity_05_Northwind_CRUD.csproj", "{347A88E9-D54A-489C-8420-876B39ADAFA2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -1167,6 +1171,14 @@ Global
 		{5B2C883E-9E71-4557-97D2-4093E93BC2A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5B2C883E-9E71-4557-97D2-4093E93BC2A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5B2C883E-9E71-4557-97D2-4093E93BC2A4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{42369464-BB65-4521-A2A9-A1EE91D79A78}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{42369464-BB65-4521-A2A9-A1EE91D79A78}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{42369464-BB65-4521-A2A9-A1EE91D79A78}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{42369464-BB65-4521-A2A9-A1EE91D79A78}.Release|Any CPU.Build.0 = Release|Any CPU
+		{347A88E9-D54A-489C-8420-876B39ADAFA2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{347A88E9-D54A-489C-8420-876B39ADAFA2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{347A88E9-D54A-489C-8420-876B39ADAFA2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{347A88E9-D54A-489C-8420-876B39ADAFA2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
