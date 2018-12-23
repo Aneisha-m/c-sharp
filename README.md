@@ -70,6 +70,10 @@ XNA
 
 [REPL.it](https://repl.it/repls)
 
+### Visual Studio
+
+Command + Enter to run (MAC)
+
 ### VSCode
 
 Install the .NET Core SDK
@@ -122,6 +126,12 @@ dotnet new console
 will generate a new Console app project
 
 ```bash
+dotnet new console -o MyApp
+```
+
+will generate a new Console app in a folder MyApp
+
+```bash
 dotnet run 
 ```
 
@@ -163,9 +173,46 @@ where we can see we have referenced the `dll` in our `using` statement.  In orde
 </ItemGroup>
 ```
 
+### Adding references
+
+Try this using statement to save yourself a lot of typing!
+
+```csharp
+using static System.Console;
+```
+
+### Adding references in .NET Core
+
+```csharp
+#r "System.Net.Http"
+using System.Net.Http;
+var client = new HttpClient();
+client.BaseAddress = new Uri("http://www.bbc.co.uk");
+var response = await client.GetAsync("about");
+Console.WriteLine(response.Content.Headers.GetValues("Content-Type"));
+await response.Content.ReadAsStringAsync();
+```
+
 ### Autoformatting
 
 Code can be autoformatted with Edit, Advanced, Format Document.
+
+### AutoSave in VSCode 
+
+File, AutoSave - turn on 
+
+### Debugging in Visual Studio
+
+* Run to cursor
+
+* Set next statement
+
+* Attach first time then reattach to process second time
+
+* Disable breakpoints once one has been hit in order to stay on the same thread
+
+### Git and Github and VSTS
+
 
 
 ## Chapter 2 : Variables
@@ -187,6 +234,28 @@ Code can be autoformatted with Edit, Advanced, Format Document.
 ## Chapter 10 : Encryption, Hashing, Signing, Authentication, Authorization
 
 ## Chapter 11 : Entity Core, SQL, SQLite, 
+
+Try this code to connect to a database, after Entity has been added to the project
+
+```csharp
+using (var db = new Northwind()) {
+	var categories = db.Categories.Include(c=>c.Products);
+	foreach (Category c in categories){
+		WriteLine("{c.CategoryName} has {c.Products.Count} products");
+	}
+	// products more than a price
+	decimal price = 10.0M;
+	var products = db.Products.Where(product=>product.Cost>price).OrderByDescending(product=>product.Cost);
+	foreach(Product p in products){
+		WriteLine($"{p.ProductID} : {p.ProductName} has price {p.Cost:$#,##0.00} and stock {p.Stock}");
+	}
+}
+
+
+```
+
+
+
 
 ## Chapter 12 : LINQ
 
