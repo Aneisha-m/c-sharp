@@ -127,6 +127,45 @@ dotnet run
 
 will run the app!!!
 
+We can also build a `dll` library file using the following
+
+```bash
+dotnet new classlib
+```
+
+and we can use and reference this library with direct code, for example
+
+```csharp
+ using System;
+using deletemecs02;
+
+namespace deletemecs01
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            var instance02 = new Phil();
+            instance02.someNumber = 22;
+            Console.WriteLine("Hello World! " + instance02.someNumber);
+        }
+    }
+}
+```
+
+where we can see we have referenced the `dll` in our `using` statement.  In order to reference this `dll` correctly we have added the literal path to our csproj file
+
+```xml
+<ItemGroup>
+  <Reference Include="deletemecs02">
+    <HintPath>..\deletemecs02\bin\Debug\netstandard2.0\deletemecs02.dll</HintPath>
+  </Reference>
+</ItemGroup>
+```
+
+### Autoformatting
+
+Code can be autoformatted with Edit, Advanced, Format Document.
 
 
 ## Chapter 2 : Variables
