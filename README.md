@@ -236,11 +236,11 @@ File, AutoSave - turn on
 ### Console output
 
 ```csharp
-Console.ForegroundColor=(ConsoleColor)Enum.Parse(typeof(ConsoleColor),red,true);
-Console.BackgroundColor=(ConsoleColor)Enum.Parse(typeof(ConsoleColor),yellow,true);
-Console.WindowWidth=30;
-Console.WindowHeight=30;
-
+Console.ForegroundColor = (ConsoleColor)Enum.Parse(typeof(ConsoleColor), "red", true);
+Console.BackgroundColor = (ConsoleColor)Enum.Parse(typeof(ConsoleColor), "yellow", true);
+Console.WindowWidth = 100;
+Console.WindowHeight = 30;
+Console.WriteLine("hello world");
 ```
 
 ### Git and Github and VSTS
@@ -255,6 +255,7 @@ Console.WindowHeight=30;
 foreach(var assembly in GetEntryAssembly().GetReferencedAssemblies()){
 	// load then count all assemblies
 }
+```
 
 ### Computers Store Numbers Only Approximately
 
@@ -293,22 +294,51 @@ int? nameLength = authorName.length ?? -1;
 
 ### String Format
 
-	:N0
+	:N0 display as a number with removing any numbers after the decimal point
+	:N1 keep one decimal place
+	:N2 keep two decimal places
 
 	:C currency
 
+	:X hexadecimal
 
+	:E exponential number format 10E12
 
 ### String Interpolation
 
 This is an upgrade to the String.Format command.
 
-
 ```csharp
 Console.WriteLine($"{variable-goes-here} and some text as well");
 ```
 
+### Composite Formatting
+
+This can display strings with a given width to form a table in console output
+
+```csharp
+string[] names = { "Adam", "Bridgette", "Carla", "Daniel",
+            "Ebenezer", "Francine", "George" };
+decimal[] hours = { 40, 6.667m, 40.39m, 82, 40.333m, 80,
+                    16.75m };
+Console.WriteLine("{0,-20} {1,5}\n", "Name", "Hours");
+for (int i = 0; i < names.Length; i++)
+    Console.WriteLine("{0,-20} {1,5:N1}", names[i], hours[i]);
+```
+
+See String.Format_01 for worked example of this code.
+
+
+
 # Chapter 3 : Conditional Operators, Exceptions
+
+### Test for a type
+
+```csharp
+if (o is int i) {  
+	// use i
+}
+```
 
 # Chapter 4 : Functions, DRY, Debugging, Testing
 
@@ -321,6 +351,14 @@ Console.WriteLine($"{variable-goes-here} and some text as well");
 # Chapter 8 : Handling numbers, handling strings, Collections, Internationalization
 
 # Chapter 9 : Files, Streams, Serialization, Encoding
+
+### Path
+
+```csharp
+// combine a foder path with a text file
+Path.Combine(path,"file.txt");
+```
+
 
 # Chapter 10 : Encryption, Hashing, Signing, Authentication, Authorization
 
@@ -369,6 +407,20 @@ public class Example
         }
     }
 }
+```
+
+### Base64 Encoding
+
+```csharp
+byte[] byteArray = new byte[128];
+// populate
+(new Random()).NextBytes(byteArray);
+// as bytes in Hex
+for (int i=0;i<byteArray.Length;i++){
+	Write($"{byteArray[i]:X}");
+}
+// as Base64
+WriteLine(${Convert.ToBase64String(byteArray)});
 ```
 
 # Chapter 11 : Entity Core, SQL, SQLite, 

@@ -79,7 +79,28 @@ namespace String.Format_01
             Console.WriteLine(s);
             // Output similar to: 'It is now 4/10/2015 at 10:04 AM'
 
-            Console.ReadLine();
+            string[] names = { "Adam", "Bridgette", "Carla", "Daniel",
+                        "Ebenezer", "Francine", "George" };
+            decimal[] hours = { 40, 6.667m, 40.39m, 82, 40.333m, 80,
+                                16.75m };
+
+            Console.WriteLine("{0,-20} {1,5}\n", "Name", "Hours");
+            for (int i = 0; i < names.Length; i++)
+                Console.WriteLine("{0,-20} {1,5:N1}", names[i], hours[i]);
+
+        // The example displays the following output:
+        //       Name                 Hours
+        //
+        //       Adam                  40.0
+        //       Bridgette              6.7
+        //       Carla                 40.4
+        //       Daniel                82.0
+        //       Ebenezer              40.3
+        //       Francine              80.0
+        //       George                16.8
+
+
+        Console.ReadLine();
         }
     }
 }
