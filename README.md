@@ -102,6 +102,8 @@ Install the C# extension to provide intellisense
 
 ### .NET
 
+.NET is open source and can be found here [https://github.com/dotnet](https://github.com/dotnet)
+
 Three libraries
 
 	.NET Framework
@@ -134,6 +136,10 @@ Three libraries
 .NET 
 
 	Compiles to CIL then JIT Just In Time at Runtime
+
+### C# latest version
+
+In order to work with different versions of C# you can enable a given feature when it is flagged in Visual Studio, or alternatively go to the Project, Build, Advanced and set the language level there.
 
 ### Hello World .NET
 
@@ -445,9 +451,39 @@ Assert.Equal(true,false);
 
 6. dotnet test from the CalculatorUnitTests folder
 
+## Functions (Methods)
 
+If a method alters an object, good practice is to return the modified object
+
+### Local = nested = inner function/method
+
+### Overloading
+
+Good practice is to use overloading to make your code appear simpler ie with less methods
+
+### Exceptions
+
+When creating your own own Exception objects which inherit from Exception, it is best practice to make your own three standard constructors which go with the object.  Remember constructors are not inherited so must be explicitly declared.
 
 # Chapter 5 : Classes, Aggregation, Encapsulation, Tuples
+
+## Classes
+
+### Properties
+
+Properties are methods which expose fields.
+
+### Properties with lambda
+
+```csharp
+class MyClass{
+	private string _x;
+	private string _y;
+	// will return both _x and _y
+	public string bothFields => _x + " " + _y;
+}
+```
+
 
 
 ### Objects
@@ -475,18 +511,49 @@ or we could use a constructor!!!
 
 Tuple is a custom object which can hold regular data types.  There are two ways to write and create tuples.
 
+To use tuples we can use a .NET Core project or in .NET Standard we must use the Nuget Package `ValueTuple`
+
 ```csharp
-// older method
-public Tuple<string,int> GetPerson(){
-	return Tuple.Create("Bob",22);
+// construct tuples - old CSharp declaration
+Tuple<string, int> GetPerson1()
+{
+    return Tuple.Create("Bob", 22);
 }
-// C#7 tuple declaration
-public (string,int) GetPerson(){
-	return ("Bob",22);
+
+// construct tuples - C#7 declaration (must install Nuget ValueTuple)
+(string name, int age) GetPerson2()
+{
+    return ("Jill", 33);
 }
+WriteLine($"{GetPerson2().name} is {GetPerson2().age}");
+
+// assign tuples to variables
+var tuple01 = GetPerson2();
+WriteLine($"{tuple01.name} has age {tuple01.age}");
+
+// deconstruct
+(string name, int age) = tuple01;
+WriteLine($"{name} has age {age}");
 ```
 
+
+
 # Chapter 6 : Interfaces, Inheritance, Operators, Delegates, Events, Polymorphism, Extension Methods, Casting With Inheritance
+
+## Events
+
+### Predefined events
+
+Microsoft has predefined two event delegates
+
+```csharp
+public delegate void handler01 (object sender, EventArgs e);
+public delegate void handler02<TEventArgs> (object sender, EventArgs e);
+```
+
+
+
+
 
 # Chapter 7 : .NET Standard, .NET Core, Deployment
 
