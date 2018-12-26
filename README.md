@@ -1,5 +1,9 @@
 # C#, .NET, Visual Studio, VSCore #
 
+The code in this repository is valid for anyone learning C#.  It was developed over time in teaching two courses - the MTA 98-361 Software Development course and the formal 70-483 (20483M) Programming In C# course from Microsoft.
+
+Neither of these courses are particularly fresh or current so I have created a fresh push in my own learning by buying Mark Price's amazing book [C# 7.1 and .NET Core 2.0](https://www.amazon.com/7-1-NET-Core-2-0-Cross-Platform-ebook/dp/B0751HBGHK) and taking notes on it, particuarly the parts on .NET Core which is all new to me.  The result is the notes below which at the moment is nearly completely specific to Mark's book.
+
 [Random Terms](#random-terms)
 
 [ToDo](#to-do)
@@ -85,6 +89,8 @@ Code for the book is found here [https://github.com/markjprice/cs7dotnetcore2](h
 Command + Enter to run (MAC)
 
 Command + H to replace
+
+Shift + Alt + C to add a new class
 
 ### VSCode
 
@@ -221,31 +227,20 @@ Code can be autoformatted with Edit, Advanced, Format Document.
 
 File, AutoSave - turn on 
 
-### Debugging in Visual Studio
+### Using a particular version of C# #
 
-* Run to cursor
+We can be sure to use a certain version of C# by modifying the .csproj file to include the following
 
-* Set next statement
-
-* Attach first time then reattach to process second time
-
-* Disable breakpoints once one has been hit in order to stay on the same thread
-
-* Command K, C then Command K, U to comment then uncomment lines
-
-### Console output
-
-```csharp
-Console.ForegroundColor = (ConsoleColor)Enum.Parse(typeof(ConsoleColor), "red", true);
-Console.BackgroundColor = (ConsoleColor)Enum.Parse(typeof(ConsoleColor), "yellow", true);
-Console.WindowWidth = 100;
-Console.WindowHeight = 30;
-Console.WriteLine("hello world");
+```xml
+<PropertyGroup>
+   <LangVersion>latest</LangVersion>
+</PropertyGroup>
 ```
 
+We can replace `latest` with `default` to use C# 7.0 or we could use a specific number eg `7.3` in there also.
+
+
 ### Git and Github and VSTS
-
-
 
 # Chapter 2 : Variables
 
@@ -292,6 +287,15 @@ int? nameLength = authorName.length ?? -1;
 
 ## Strings
 
+### String Parsing
+
+```csharp
+// exception
+int.Parse("abc");
+// safer as boolean returned to let you know if it succeeded or not
+bool success = int.TryParse("abc", out output);
+```
+
 ### String Format
 
 	:N0 display as a number with removing any numbers after the decimal point
@@ -328,7 +332,28 @@ for (int i = 0; i < names.Length; i++)
 
 See String.Format_01 for worked example of this code.
 
+### Const and ReadOnly
 
+Use instance attribute `readonly` because it can be used with a constructor and it's fine with the value changing.  `const` changes the values into literal values which become hard coded into the code, so are not so flexible.
+
+```csharp
+// don't use this
+const x = 500;
+```
+
+```csharp
+// use this
+readonly string y;
+```
+
+### default
+
+```csharp
+// will be null
+string x = default;
+// will be 0
+int y = default;
+```
 
 # Chapter 3 : Conditional Operators, Exceptions
 
@@ -342,7 +367,124 @@ if (o is int i) {
 
 # Chapter 4 : Functions, DRY, Debugging, Testing
 
-# Chapter 5 : Classes, Aggregation, Encapsulation, Tuples, 
+### Debugging in Visual Studio
+
+* Run to cursor
+
+* Set next statement
+
+* Attach first time then reattach to process second time
+
+* Disable breakpoints once one has been hit in order to stay on the same thread
+
+* Command K, C then Command K, U to comment then uncomment lines
+
+### Debug Windows
+
+	Locals - variables
+
+	Immediate Window - interact with your code and variables.  VSCode has Debug Console Window.
+
+### Console output
+
+```csharp
+Console.ForegroundColor = (ConsoleColor)Enum.Parse(typeof(ConsoleColor), "red", true);
+Console.BackgroundColor = (ConsoleColor)Enum.Parse(typeof(ConsoleColor), "yellow", true);
+Console.WindowWidth = 100;
+Console.WindowHeight = 30;
+Console.WriteLine("hello world");
+```
+
+### Trace Output
+
+`Debug.WriteLine` comments are not compiled for `release` code.
+
+`Trace.WriteLine` comments are always present however.
+
+But we can control their visibility by entering an argument when we run a Console app.  We declare and use a TraceSwitch object in our code.
+
+## Testing
+
+TDD means writing tests before our code
+
+`MS Test` is Microsoft's test framework.
+
+`xUnit.net` will work with .NET Core
+
+### Testing with xUnit in Visual Studio
+
+1. Create Library Project with .NET Standard
+
+2. Add .NET Core xUnit Test Project
+
+3. Add Reference of (1) into (2)
+
+4. Run tests!
+
+### Testing with xUnit in Visual Studio
+
+1. dotnet new classlib in CalculatorLib folder
+
+2. dotnet build
+
+3. dotnet new xunit in CalculatorUnitTests folder
+
+4. modify .csproj to add 
+
+```xml
+<ItemGroup>
+  <ProjectReference Include="..\Calculator\Calculator.csproj" />
+</ItemGroup>
+```
+
+5. write your tests
+
+```csharp
+Assert.Equal(true,false);
+```
+
+6. dotnet test from the CalculatorUnitTests folder
+
+
+
+# Chapter 5 : Classes, Aggregation, Encapsulation, Tuples
+
+
+### Objects
+
+We can create new objects from custom classes thus :
+
+```csharp
+public class CustomObject{
+	public string name {get;set;}
+	public int age {get;set;}
+}
+```
+
+and create a new object using
+
+```csharp
+var object01 = new CustomObject{
+	name = "Bob",
+	age = 22
+}
+```
+or we could use a constructor!!!
+
+### Tuples
+
+Tuple is a custom object which can hold regular data types.  There are two ways to write and create tuples.
+
+```csharp
+// older method
+public Tuple<string,int> GetPerson(){
+	return Tuple.Create("Bob",22);
+}
+// C#7 tuple declaration
+public (string,int) GetPerson(){
+	return ("Bob",22);
+}
+```
 
 # Chapter 6 : Interfaces, Inheritance, Operators, Delegates, Events, Polymorphism, Extension Methods, Casting With Inheritance
 
@@ -462,6 +604,8 @@ using (var db = new Northwind()) {
 # Chapter 18 : XAMARIN, Mobile Apps, Mobile Forms
 
 # Glossary
+
+[Prime Numbers](#prime-numbers)
 
 XNA
 
