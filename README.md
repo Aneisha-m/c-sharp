@@ -84,6 +84,8 @@ Code for the book is found here [https://github.com/markjprice/cs7dotnetcore2](h
 
 [.NET Fiddle](https://dotnetfiddle.net)
 
+[https://codeanywhere.com](https://codeanywhere.com)
+
 ### Visual Studio
 
 Command + Enter to run (MAC)
@@ -557,7 +559,125 @@ public delegate void handler02<TEventArgs> (object sender, EventArgs e);
 
 # Chapter 7 : .NET Standard, .NET Core, Deployment
 
+APIs in use for .NET 2.0 are here [https://docs.microsoft.com/en-us/dotnet/api/](https://docs.microsoft.com/en-us/dotnet/api)
+
+.NET 2.0 is open source and documented on GitHub here [https://github.com/dotnet/standard/blob/master/docs/versions/netstandard2.0.md](https://github.com/dotnet/standard/blob/master/docs/versions/netstandard2.0.md)
+
+The differences in the versions can be found here [https://github.com/dotnet/standard/blob/master/docs/versions.md](https://github.com/dotnet/standard/blob/master/docs/versions.md)
+
+### .NET project types
+
+```bash
+dotnet new console
+
+dotnet new web 
+
+dotnet new mvc 
+
+dotnet new razor 
+
+dotnew new angular 
+
+dotnet new react 
+
+// list temmplates
+dotnet new -l 
+
+dotnet restore
+
+dotnet build
+
+dotnet test 
+
+dotnet migrate 
+
+dotnet pack 
+
+dotnet publish
+
+dotnet add package newtonsoft.json 
+
+```
+
 # Chapter 8 : Handling numbers, handling strings, Collections, Internationalization
+
+String methods
+
+.StartsWith()
+.Contains()
+.Trim()/TrimStart()/TrimEnd()
+.ToUpper/Lower
+.Insert/Remove
+.Replace
+.Concat
+.Join
+.IsNullOrEmpty
+.IsNullOrWhitespace
+.Empty
+.Format
+
+## Collections
+
+### Sets
+
+Sets are useful to determine the intersection
+
+### Sorting
+
+Cannot sort Dictionary, Queue, Stack
+
+Can sort SortedDictionary, SortedList, SortedSet
+
+### BitArrray is a collection of 1 and 0
+
+### Immutable collection
+
+## Networking
+
+Dns
+
+Uri
+
+	Scheme
+
+	AbsolutePath
+
+	Port
+
+	Host
+
+	Query
+
+Cookie
+
+WebClient
+
+IPAddress
+
+HttpStatusCode
+
+HttpWebRequest
+
+HttpWebResponse
+
+Attachment
+
+MailAddress
+
+MailMessage
+
+SmtpClient
+
+IPStatus
+
+NetworkChange
+
+Ping
+
+TcpStatistics
+
+
+
 
 # Chapter 9 : Files, Streams, Serialization, Encoding
 
@@ -658,9 +778,199 @@ using (var db = new Northwind()) {
 
 # Chapter 12 : LINQ
 
+## SQLite
+
+download graphic utility at [https://sqlitestudio.pl/index.rvt](https://sqlitestudio.pl/index.rvt)
+
+### SQLite with Northwind
+
+Download Northwind.sql from [https://github.com/markjprice/cs7dotnetcore2/edit/master/sql-scripts/Northwind4SQLite.sql](https://github.com/markjprice/cs7dotnetcore2/edit/master/sql-scripts/Northwind4SQLite.sql)
+
+Run
+
+```bash
+# Run Northwind.sql script to make Northwind.db database
+sqlite Northwind.db < Northwind.sql
+```
+
+### EF Core 
+
+EFCore is different to EF6 Entity Framework 6.
+
+EFCore supports Azure Cosmos DB, Mongo DB and Redis
+
+### EF Core Data Providers
+
+EF Core Data Providers are classes which are optimised for talking to a specific database
+
+ASP.NET Core contains all of these packages anyway for SQL and SQLite.
+
+If we create a console app we must manually add them though
+
+Packages to add
+
+	SQL 		Microsoft.EntityFrameworkCore.SqlServer (search EFCore Sql)
+
+	SQLite 		Microsoft.EntityFrameworkCore.SQLite 
+
+	MySQL 		MySQL.EntityFrameworkCore
+
+### Nuget Package Manager Console
+
+To install packages using Nuget console we can use the following commands
+
+```bash
+# search for a package
+Find-Package SQLite
+```
+
+Once found we can install it
+
+```bash
+# install package
+Install-Package Microsoft.EntityFrameworkCore.SQLite -ProjectName name-of-project
+```
+
+### SQLite Project with .NET Core Console App in Visual Studio
+
+Create .NET Core Console app
+
+Here is a working app which pulls in both Categories but for each Category, also pulls in the products
+
+```csharp
+using static System.Console;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Sqlite;
+using System.Linq;
+
+namespace Entity_08_Northwind_Category_Product_SQLite
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            QueryingCategories();
+        }
+        static void QueryingCategories()
+        {
+            using (var db = new Northwind())
+            {
+                WriteLine("Categories and how many products they have");
+                var categories = db.Categories.Include(c => c.Products);
+                foreach (var c in categories)
+                {
+                    WriteLine($"\n\n{c.CategoryName} has ID {c.CategoryID} and description {c.Description}.  It has {c.Products.Count} products\n");
+                    WriteLine($"{"Product",-40}{"ID",-20}{"Cost",-20}{"Stock",-20}");
+                    WriteLine($"{"-------",-40}{"--",-20}{"----",-20}{"-----",-20}");
+                    foreach (Product p in c.Products)
+                    {
+                        WriteLine($"{p.ProductName,-40}{p.ProductID,-20}{p.Cost,-20}{p.Stock,-20}");
+                    }
+                }
+
+                WriteLine("\n\n\nAlso list products\n");
+                decimal price = 40.0M;
+
+                var products = db.Products;
+
+                WriteLine($"{"Product",-40}{"Stock",-20}{"Cost",-20}\n");
+                foreach (Product product in products)
+                {
+                    WriteLine($"{product.ProductName,-40}{product.Stock,-20}{product.Cost,-20}");
+                }
+
+                var products2 = db.Products
+                    .Where(product => product.Cost > price)
+                    .OrderByDescending(product => product.Cost);
+
+                WriteLine("\n\n\nProducts in order greater than a set price\n");
+                WriteLine($"{"Product",-40}{"Stock",-20}{"Cost",-20}\n");
+                foreach (Product product in products2)
+                {
+                    WriteLine($"{product.ProductName,-40}{product.Stock,-20}{product.Cost,-20}");
+                }
+            }
+        }
+
+
+    }
+    public class Category
+    {
+        public int CategoryID { get; set; }
+        public string CategoryName { get; set; }
+        [Column(TypeName = "ntext")]
+        public string Description { get; set; }
+        public virtual ICollection<Product> Products { get; set; }
+        public Category()
+        {
+            this.Products = new List<Product>();
+        }
+    }
+    public class Product
+    {
+        public int ProductID { get; set; }
+        [Required]
+        [StringLength(40)]
+        public string ProductName { get; set; }
+        [Column("UnitPrice", TypeName = "money")]
+        public decimal? Cost { get; set; }
+        [Column("UnitsInStock")]
+        public short? Stock { get; set; }
+        public bool Discontinued { get; set; }
+        public int CategoryID { get; set; }
+        public virtual Category Category { get; set; }
+    }
+    public class Northwind : DbContext
+    {
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<Product> Products { get; set; }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            string path = System.IO.Path.Combine(System.Environment.CurrentDirectory, "Northwind.db");
+            // use SQLite
+            //optionsBuilder.UseSqlite($"Filename={path}");
+            // use SQL
+            optionsBuilder.UseSqlServer(@"Data Source=(localdb)\mssqllocaldb;" + "Initial Catalog=Northwind;" + "Integrated Security=true;" + "MultipleActiveResultSets=true;");
+        }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Category>()
+                .Property(category => category.CategoryName)
+                .IsRequired()
+                .HasMaxLength(40);
+        }
+    }
+}
+```
+
+### Loading data from Entity : Lazy, Eager and Explicit Loading
+
+***Lazy loading*** queries are only run when the data is actually needed
+
+The `virtual` keyword is used so that Entity can generate a derived child class which overrides the default implementation with a lazy loading implementation.
+
+Eager loading is used when the `include` keyword is used
+
+Explicit loading is used when the `Load()` method is used
+
+
+### `virtual` keyword in Entity
+
+When the `virtual` keyword is used then lazy loading is used by default
+
+
+
 # Chapter 13 : Multitasking, Async, Diagnostics and Performance
 
 # Chapter 14 : ASP.NET Core Razor
+
+## Tutorial : Building An App using ASP.NET Core Razor
+
+https://docs.microsoft.com/en-us/aspnet/core/tutorials/razor-pages/razor-pages-start
 
 # Chapter 15 : ASP.NET Core MVC, Testing, Config, Authentication, Routes, Models, Views, Controllers, 
 

@@ -21,10 +21,7 @@ namespace Tuples_01
 
             // C#7 tuple declaration
             // must install Nuget ValueTuple to get this working
-            (string, int) GetPerson2()
-            {
-                return ("Bob", 22);
-            }
+
 
             (string name, int age) GetPerson3()
             {
@@ -47,8 +44,6 @@ namespace Tuples_01
             (string name, int age) = tuple01;
 
             WriteLine($"{name} has age {age}");
-
-
         }
     }
 }
