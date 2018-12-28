@@ -957,10 +957,17 @@ Eager loading is used when the `include` keyword is used
 
 Explicit loading is used when the `Load()` method is used
 
-
 ### `virtual` keyword in Entity
 
 When the `virtual` keyword is used then lazy loading is used by default
+
+### EFCore Logging
+
+We can log database interactions so we are sure of what we are doing
+
+### `like` EFCore SQL command
+
+We can use the following to query matches in our results 
 
 
 

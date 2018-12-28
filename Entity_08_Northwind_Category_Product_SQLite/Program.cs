@@ -52,6 +52,15 @@ namespace Entity_08_Northwind_Category_Product_SQLite
                 {
                     WriteLine($"{product.ProductName,-40}{product.Stock,-20}{product.Cost,-20}");
                 }
+
+                WriteLine("\n\nNow using 'like' keyword to search using part of product name");
+                var likeString = "che";
+                var products3 = db.Products
+                    .Where(product => EF.Functions.Like(product.ProductName, $"%{likeString}%"));
+                foreach(Product p in products3)
+                {
+                    WriteLine($"{p.ProductName} has {p.Stock} items in stock at price {p.Cost}");
+                }
             }
         }
 
@@ -102,6 +111,9 @@ namespace Entity_08_Northwind_Category_Product_SQLite
                 .Property(category => category.CategoryName)
                 .IsRequired()
                 .HasMaxLength(40);
+            // filter out discontinued products
+            modelBuilder.Entity<Product>()
+                .HasQueryFilter(p => !p.Discontinued);
         }
     }
 }
