@@ -52,7 +52,6 @@ namespace LINQ_08_dotnet_core
                 .OrderBy(s => s.Length)
                 .ThenBy(s => s);
             WriteLine(string.Join(", ", query6));
-
         }
 
         static bool LengthGreaterThan4(string s)
