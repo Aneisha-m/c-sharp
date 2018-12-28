@@ -12,7 +12,15 @@ namespace Entity_08_Northwind_Category_Product_SQLite
     {
         static void Main(string[] args)
         {
+            bool addProductSuccess = AddProduct(6, "Curried Beef Pie", 47.00M, 150, out int productID);
+            WriteLine($"\n\nNew product added - successful? {addProductSuccess} - new ID {productID}\n\n");
+            int newCost = 100;
+            bool updateCostSuccess = UpdateCost(productID, newCost);
+            WriteLine($"{productID} has been updated with new cost of {newCost}");
+            int numProductsDeleted = deleteProduct(productID - 1);
+            WriteLine($"{numProductsDeleted} product has been deleted which had ID {productID-1}");
             QueryingCategories();
+
         }
         static void QueryingCategories()
         {
@@ -62,8 +70,51 @@ namespace Entity_08_Northwind_Category_Product_SQLite
                     WriteLine($"{p.ProductName} has {p.Stock} items in stock at price {p.Cost}");
                 }
             }
-        }
+        }  // static void QueryingCategories()
 
+        static bool AddProduct(int CategoryID, string ProductName, decimal? Price, short? Stock, out int ProductID)
+        {
+            using (var db = new Northwind())
+            {
+
+                var product = new Product
+                {
+                    CategoryID = CategoryID,
+                    ProductName = ProductName,
+                    Cost = Price,
+                    Stock = Stock
+                };
+
+                db.Products.Add(product);
+                int affected = db.SaveChanges();
+                ProductID = product.ProductID;
+                return (affected == 1);
+            }
+        }  // static bool AddProduct()
+
+
+        static bool UpdateCost(int productID,decimal newCost)
+        {
+            using (var db = new Northwind())
+            {
+                Product product = db.Products.First(p => p.ProductID == productID);
+                product.Cost = newCost;
+                int affected = db.SaveChanges();
+                return (affected == 1);
+            }
+        }  // static bool UpdateCost()
+
+        static int deleteProduct(int productID) {
+            using (var db = new Northwind())
+            {
+                // note that this produces a collection of products for multiple deletion
+                var productsToDelete =
+                    db.Products.Where(p => p.ProductID == productID);
+                db.Products.RemoveRange(productsToDelete);
+                int affected = db.SaveChanges();
+                return affected;
+            }
+        }  // static int deleteProduct()
 
     }
     public class Category
@@ -115,6 +166,7 @@ namespace Entity_08_Northwind_Category_Product_SQLite
             modelBuilder.Entity<Product>()
                 .HasQueryFilter(p => !p.Discontinued);
         }
+
     }
 }
 

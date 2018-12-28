@@ -799,6 +799,8 @@ EFCore is different to EF6 Entity Framework 6.
 
 EFCore supports Azure Cosmos DB, Mongo DB and Redis
 
+EFCore documentation is here [https://docs.microsoft.com/en-us/ef/core/index](https://docs.microsoft.com/en-us/ef/core/index)
+
 ### EF Core Data Providers
 
 EF Core Data Providers are classes which are optimised for talking to a specific database
@@ -967,7 +969,260 @@ We can log database interactions so we are sure of what we are doing
 
 ### `like` EFCore SQL command
 
-We can use the following to query matches in our results 
+We can use the following to query matches of partial words in our results 
+
+```csharp
+WriteLine("\n\nNow using 'like' keyword to search using part of product name");
+var likeString = "che";
+// find product names containing 'che'
+var products3 = db.Products
+    .Where(product => EF.Functions.Like(product.ProductName, $"%{likeString}%"));
+foreach(Product p in products3)
+{
+    WriteLine($"{p.ProductName} has {p.Stock} items in stock at price {p.Cost}");
+}
+```
+
+### EF Global Filters
+
+We can now design global filters to always exclude results regardless, from all results.  So to exclude discontinued products we can add the following code to the Model builder code:
+
+```csharp
+modelBuilder.Entity<Product>().hasQueryFilter(p=>!p.Discontinued);
+```
+
+### Entity : Inserting new products
+
+We can add a new method to add products
+
+```csharp
+static bool AddProduct(int CategoryID, string ProductName, decimal? Price, short? Stock, out int ProductID)
+{
+    using (var db = new Northwind())
+    {
+
+        var product = new Product
+        {
+            CategoryID = CategoryID,
+            ProductName = ProductName,
+            Cost = Price,
+            Stock = Stock
+        };
+
+        db.Products.Add(product);
+        int affected = db.SaveChanges();
+        ProductID = product.ProductID;
+        return (affected == 1);
+    }
+    
+   
+}
+```
+
+Then just call it with
+
+```csharp
+bool addProductSuccess = AddProduct(6, "Curried Beef Pie", 47.00M, 150, out int productID);
+WriteLine($"\n\nNew product added - successful? {addProductSuccess} - new ID {productID}\n\n");
+```
+
+### Entity : Updating Products
+
+We can update a product with the following code
+
+```csharp
+static bool UpdateCost(int productID,decimal newCost)
+{
+    using (var db = new Northwind())
+    {
+        Product product = db.Products.First(p => p.ProductID == productID);
+        product.Cost = newCost;
+        int affected = db.SaveChanges();
+        return (affected == 1);
+    }
+}
+```
+
+Then call it with
+
+```csharp
+int newCost = 100;
+bool updateCostSuccess = UpdateCost(productID, newCost);
+WriteLine($"{productID} has been updated with new cost of {newCost}");        
+```
+
+### Entity : Deleting Products
+
+We can delete multiple items with the code
+
+```csharp
+static int deleteProduct(int productID) {
+    using (var db = new Northwind())
+    {
+        // note that this produces a collection of products for multiple deletion
+        var productsToDelete =
+            db.Products.Where(p => p.ProductID == productID);
+        db.Products.RemoveRange(productsToDelete);
+        int affected = db.SaveChanges();
+        return affected;
+    }
+}  
+```
+
+Then call it with 
+
+```csharp
+int numProductsDeleted = deleteProduct(productID);
+WriteLine($"{numProductsDeleted} product has been deleted which had ID {productID}");        
+```
+
+### Explicit Transactions
+
+Explicit transactions can lock the database to prevent alterations whilst it is in use.  This helps ensure the ACID syntax
+
+Atomic - all transactions commit, or none
+
+Consistent - database state is consistent before and after
+
+Isolated - changes are hidden from other processes until complete
+
+Durable - if a failure occurs then we can recover and roll back 
+
+Snapshot - copies of records are made whilst being updated, so others can still read the data
+
+## LINQ 
+
+LINQ Components :
+
+* Extension Methods
+
+	such as
+
+		* Where
+
+	These are enabled when we add
+
+```csharp
+using System.Linq;
+```
+
+### Extension methods using older Func<T1,T2>() delegate
+
+The Func<T1,T2>() delegate accepts a method which accepts one type as an input and one type as an output
+
+We can use
+
+```csharp
+Func<string,bool>()
+```
+
+which indicates that the method must accept a string and return a boolean true or false.  If it's true, include the string in the query, if not then exclude it.
+
+Here is some code illustrating this Function delegate at work
+
+```csharp
+static void Main(string[] args)
+{
+	// declare array
+    string[] myArray = { "George", "Michael", "Rob", "Paul" };
+    // using explicit Func<string,bool>()
+    WriteLine("\n\nQuery strings greater than length 4\n");
+    var query = myArray.Where(new Func<string, bool>(LengthGreaterThan4));
+    foreach (string s in query)
+    {
+        WriteLine(s);
+    }
+}
+static bool LengthGreaterThan4(string s)
+{
+    return s.Length > 4;
+}
+```
+
+We can also repeat this using more modern syntax in two other ways.
+
+Firstly using implicit syntax which is the same but just removes the explicit Function delegate syntax
+
+```csharp
+// using implicit newer syntax
+var query2 = myArray.Where(LengthGreaterThan4);
+foreach(string s in query2)
+{
+    WriteLine(s);
+}
+```
+
+And finally using the more compact Lambda syntax which removes the need for a separate method altogether
+
+```csharp
+// finally repeat using Lambda
+var query3 = myArray.Where(s => s.Length > 4);
+WriteLine(string.Join(",", query3));
+```
+
+
+### LINQ .orderby extension method
+
+```csharp
+// orderby
+WriteLine("\n\nNow add .orderby() length");
+var query4 = myArray.Where(s => s.Length > 3)
+    .OrderBy(s => s.Length);
+WriteLine(string.Join(", ", query4));
+
+// order alphabetical descending
+WriteLine("\n\nNow sort descending alphabetically");
+var query5 = myArray
+    .Where(s => s.Length > 3)
+    .OrderByDescending(s=>s);
+WriteLine(string.Join(", ", query5));
+```
+
+### LINQ chaining .orderby() using .thenby() methods
+
+We can chain multiple .orderby() queries using .thenby() afterwards
+
+```csharp
+// order by length then alphabetical
+WriteLine("\n\nNow sort by length then alphabetical");
+var query6 = myArray
+    .Where(s => s.Length > 3)
+    .OrderBy(s => s.Length)
+    .ThenBy(s => s);
+WriteLine(string.Join(", ", query6));
+```
+
+### LINQ distinct	
+
+* LINQ Providers
+
+	LINQ to objects
+
+	LINQ to entities
+
+	LINQ to XML
+
+	LINQ to Odata
+
+	LINQ to Amazon
+
+* Lambda expressions
+
+* LINQ query comprehension syntax
+
+	* from
+
+	* in
+
+	* where
+
+	* orderby
+
+	* descending
+
+	* select
+
+Any collection which already implements IEnumerable<T> can have the Enumerable static class appended to it and this will enable LINQ Where and Select etc to be used on that collection.  This includes all List<T> etc items and even DBSet<T>
 
 
 
@@ -990,6 +1245,13 @@ https://docs.microsoft.com/en-us/aspnet/core/tutorials/razor-pages/razor-pages-s
 # Glossary
 
 [Prime Numbers](#prime-numbers)
+
+### Func<T1,T2>() delegate
+
+The Func<T1,T2>() delegate accepts a method which accepts one type as an input and one type as an output
+
+See LINQ for a worked example
+
 
 XNA
 
