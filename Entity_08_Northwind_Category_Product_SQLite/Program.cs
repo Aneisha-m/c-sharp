@@ -100,6 +100,13 @@ namespace Entity_08_Northwind_Category_Product_SQLite
                     new XElement("name",p.ProductName)));
                 WriteLine(xml.ToString());
 
+                // save the document
+                var doc = new XDocument(xml);
+                doc.Save("xmlOutput.xml");
+                WriteLine("Have saved the document as an XML file so reading it back");
+                WriteLine()
+
+
 
             }
         }  // static void QueryingCategories()

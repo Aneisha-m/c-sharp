@@ -1,4 +1,5 @@
 ﻿using System;
+using static System.Console;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,23 +12,22 @@ namespace LINQ_with_XML
     {
         static void Main(string[] args)
         {
-            // unfinished
 
-            XDocument xmlDoc01 = XDocument.Load("XMLdata.xml");
-            Console.WriteLine(xmlDoc01);
+            XDocument doc = XDocument.Load("settings.xml");
 
-            var movies = from m in xmlDoc01.Descendants("movie")
-                         where m.Attribute("release").Value == ""
-                         select m;
-            movies.ToList().ForEach(m => m.Attribute("release").Value = "2013");
-
-            int counter = 0;
-            Console.WriteLine("counting");
-            movies.ToList().ForEach(m => { counter++;  Console.WriteLine(counter); } );
-            foreach (var movie in movies)
+            var appSettings = doc.Descendants("appSettings").Descendants("add").Select(node => new
             {
+                Key = node.Attribute("key").Value,
+                Value = node.Attribute("value").Value
+            }).ToArray();
 
+            foreach (var item in appSettings)
+            {
+                WriteLine($"{item.Key} has value {item.Value}");
             }
+
+
+
         }
     }
 }
