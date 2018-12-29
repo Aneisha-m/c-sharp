@@ -56,8 +56,6 @@ dotnet new console make new console app
 
 dotnet build
 
-Enumerable.Range(1,5000).toArray();  // create array 1 to 5000
-
 GC.Collect()
 
 GC.WaitForPendingFinalizers  wait for all garbage collection to complete
@@ -601,7 +599,7 @@ dotnet add package newtonsoft.json
 
 # Chapter 8 : Handling numbers, handling strings, Collections, Internationalization
 
-String methods
+### String methods
 
 .StartsWith()
 .Contains()
@@ -617,6 +615,15 @@ String methods
 .Format
 
 ## Collections
+
+### Arrays
+
+To build a large array and put data in it as well we can code the following
+
+```csharp
+// create array 1 to 5000
+Enumerable.Range(1,5000).toArray();
+```
 
 ### Sets
 
@@ -1192,37 +1199,154 @@ var query6 = myArray
 WriteLine(string.Join(", ", query6));
 ```
 
-### LINQ distinct	
+### LINQ distinct
 
-* LINQ Providers
+We can now look at extracting distinct values from one or more sets of data
 
-	LINQ to objects
+```csharp
+string[] array02 = { "three", "three", "four", "five", "six" };
+WriteLine("\n\nFirstly extract only distinct values");
+// will omit the duplicate value
+WriteLine(string.Join(", ", array02.Distinct()));
+```	
 
-	LINQ to entities
+### LINQ Union()
 
-	LINQ to XML
+This joins two sets and eliminates duplicates
 
-	LINQ to Odata
+```csharp
+string[] array01 = { "one", "two", "three", "four" };
+string[] array02 = { "three", "three", "four", "five", "six" };
+WriteLine("\n\nNow Union() 2 arrays which eliminates duplicates");
+WriteLine(string.Join(", ", array01.Union(array02)));
+```
 
-	LINQ to Amazon
+### LINQ Concat()
 
-* Lambda expressions
+```csharp
+WriteLine("\n\nNow Contat() which joins and keeps all elements");
+WriteLine(string.Join(", ", array01.Concat(array02)));
+```
 
-* LINQ query comprehension syntax
+### LINQ Intersect()
 
-	* from
+```csharp
+WriteLine("\n\nIntersect shows items in both sets");
+WriteLine(string.Join(", ", array01.Intersect(array02)));
+```
 
-	* in
+### LINQ Except()
 
-	* where
+### LINQ Zip()
 
-	* orderby
+Zip is an unusual one but can be quite useful in that is matches the first two items, the next two, etc
 
-	* descending
+```csharp
+WriteLine("\n\nZip matches the first with the first, and so on");
+// Create an enumerable collection of strings
+var arrayOfPairs = array01.Zip(array02, (a, b) => $"{a} with {b}");
+WriteLine(string.Join(", ", arrayOfPairs));
+```
 
-	* select
+### LINQ IQueryable vs IEnumerable
+
+IQueryable is using lazy loading
+
+IEnumerable is using immediate execution
+
+### LINQ Providers
+
+LINQ to objects
+
+LINQ to entities
+
+LINQ to XML
+
+LINQ to Odata
+
+LINQ to Amazon
+
+### LINQ query comprehension syntax
+
+This is a limited subset of LINQ.
+
+To use all the features of LINQ we must use `extension methods` with `lambda expressions`.
+
+Here is an example of `extension method` syntax with `lambda expressions`
+
+```csharp
+var output = myArray
+	.Where(s=>s.length>4)
+	.OrderBy(s=>s.length)
+	.ThenBy(s=>s);
+```
+
+Here is the same code using `LINQ query comprehension syntax`.
+
+```csharp
+var output = 
+	from s in myArray
+	where s.length > 4
+	orderby s.length, s
+	select s;
+```
+
+We can combine the two features if we want some methods which are not available, for example 
+
+```csharp
+var output = (
+	from s in myArray
+	where s.length>4
+	orderby s.length, s
+	select s).Skip(80).Take(10);
+```
+
+* from
+
+* in
+
+* where
+
+```csharp
+var output = 
+	from s in myArray
+	where s.length > 4
+	orderby s.length, s
+	select s;
+```
+
+* orderby
+
+```csharp
+var output = 
+	from s in myArray
+	where s.length > 4
+	orderby s.length, s
+	select s;
+```
+
+* descending
+
+
+
+* select
+
+select is mandatory here
 
 Any collection which already implements IEnumerable<T> can have the Enumerable static class appended to it and this will enable LINQ Where and Select etc to be used on that collection.  This includes all List<T> etc items and even DBSet<T>
+
+### skip
+
+Skip allows us to do pagination
+
+### take
+
+Take allows us to do pagination by only selecting the next few records
+
+### LINQ to XML
+
+We can generate XML output from a LINQ query
+
 
 
 

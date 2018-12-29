@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Sqlite;
 using System.Linq;
+using System.Xml.Linq;
 
 namespace Entity_08_Northwind_Category_Product_SQLite
 {
@@ -20,7 +21,6 @@ namespace Entity_08_Northwind_Category_Product_SQLite
             int numProductsDeleted = deleteProduct(productID - 1);
             WriteLine($"{numProductsDeleted} product has been deleted which had ID {productID-1}");
             QueryingCategories();
-
         }
         static void QueryingCategories()
         {
@@ -58,7 +58,7 @@ namespace Entity_08_Northwind_Category_Product_SQLite
                 WriteLine($"{"Product",-40}{"Stock",-20}{"Cost",-20}\n");
                 foreach (Product product in products2)
                 {
-                    WriteLine($"{product.ProductName,-40}{product.Stock,-20}{product.Cost,-20}");
+                    WriteLine($"{product.ProductName,-40}{product.Stock,-20}{product.Cost,-20:£#,##0.00}");
                 }
 
                 WriteLine("\n\nNow using 'like' keyword to search using part of product name");
@@ -69,6 +69,38 @@ namespace Entity_08_Northwind_Category_Product_SQLite
                 {
                     WriteLine($"{p.ProductName} has {p.Stock} items in stock at price {p.Cost}");
                 }
+
+
+                var products4 = db.Products
+                    .Where(product => product.Cost > price)
+                    .OrderByDescending(product => product.Cost)
+                    .Select(product => new
+                    {
+                        product.ProductID,
+                        product.ProductName,
+                        product.Cost,
+                        product.Stock
+                    });
+
+                WriteLine("\n\n\nProducts in order greater than a set price");
+                WriteLine("More efficient query as only returning desired column\n");
+                WriteLine($"{"Product",-40}{"Stock",-20}{"Cost",-20}\n");
+                foreach (var product in products4)
+                {
+                    WriteLine($"{product.ProductName,-40}{product.Stock,-20}{product.Cost,-20:£#,##0.00}");
+                }
+
+                WriteLine("\n\nTranslating To XML\n");
+                var ProductsToXML = db.Products.Take(3);
+                var xml = new XElement("products",
+                    from p in ProductsToXML
+                    select new XElement("product",
+                    new XAttribute("id",p.ProductID),
+                    new XAttribute("price",p.Cost),
+                    new XElement("name",p.ProductName)));
+                WriteLine(xml.ToString());
+
+
             }
         }  // static void QueryingCategories()
 
