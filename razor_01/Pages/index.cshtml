@@ -1,0 +1,16 @@
+@page
+@functions{
+public string DayName {get;set;}
+public void OnGet(){
+    ViewData["Title"]="Some Title";
+Model.DayName=DateTime.Now.ToString("dddd");
+}
+}
+<html>
+<h1>Hello World From Phil</h1>
+<h2>Title is also @ViewData["Title"]</h2>
+<h2>@Model.DayName</h2>
+<a href="Suppliers">
+    <button type="button">Suppliers</button>
+</a>
+</html>

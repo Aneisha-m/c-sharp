@@ -409,7 +409,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LINQ_08_dotnet_core", "LINQ
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LINQ_09_Combining_Collections", "LINQ_09_Combining_Collections\LINQ_09_Combining_Collections.csproj", "{FC7E66D6-E212-4DAE-88CE-22778E754DDA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entity_09_LINQ_to_XML", "Entity_09_LINQ_to_XML\Entity_09_LINQ_to_XML.csproj", "{365CD71B-A38E-4890-AA0F-B1B384BC8BEC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Entity_09_LINQ_to_XML", "Entity_09_LINQ_to_XML\Entity_09_LINQ_to_XML.csproj", "{365CD71B-A38E-4890-AA0F-B1B384BC8BEC}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Razor_01", "razor_01\Razor_01.csproj", "{16612209-D2E6-44C8-9167-9C56A2A3E1A4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -1233,6 +1235,10 @@ Global
 		{365CD71B-A38E-4890-AA0F-B1B384BC8BEC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{365CD71B-A38E-4890-AA0F-B1B384BC8BEC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{365CD71B-A38E-4890-AA0F-B1B384BC8BEC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{16612209-D2E6-44C8-9167-9C56A2A3E1A4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{16612209-D2E6-44C8-9167-9C56A2A3E1A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{16612209-D2E6-44C8-9167-9C56A2A3E1A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{16612209-D2E6-44C8-9167-9C56A2A3E1A4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

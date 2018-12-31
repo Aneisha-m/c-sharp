@@ -6,6 +6,12 @@ Neither of these courses are particularly fresh or current so I have created a f
 
 [Random Terms](#random-terms)
 
+Bower - client-side package manager
+
+Gulp - repetitive task manager
+
+Webpack - compiles, transpiles and bundles source code
+
 [ToDo](#to-do)
 
 [Chapter 1 : Visual Studio, VSCode, Windows, MAC, Linux, .NET, .NET Framework, .NET Core, .NET Standard, .NET Native](#chapter-1-visual-studio-vscode-windows-mac-linux-net-net-framework-net-core-net-standard-net-native)
@@ -826,6 +832,13 @@ Packages to add
 
 ### Nuget Package Manager Console
 
+To see what packages are already installed we can use the following
+
+```bash
+# find existing packages
+Get-Package 
+```
+
 To install packages using Nuget console we can use the following commands
 
 ```bash
@@ -839,6 +852,8 @@ Once found we can install it
 # install package
 Install-Package Microsoft.EntityFrameworkCore.SQLite -ProjectName name-of-project
 ```
+
+
 
 ### SQLite Project with .NET Core Console App in Visual Studio
 
@@ -1347,12 +1362,207 @@ Take allows us to do pagination by only selecting the next few records
 
 We can generate XML output from a LINQ query
 
+```csharp
+WriteLine("\n\nTranslating To XML\n");
+var ProductsToXML = db.Products.Take(3);
+var xml = new XElement("products",
+    from p in ProductsToXML
+    select new XElement("product",
+    new XAttribute("id",p.ProductID),
+    new XAttribute("price",p.Cost),
+    new XElement("name",p.ProductName)));
+WriteLine(xml.ToString());
+```
+
 
 
 
 # Chapter 13 : Multitasking, Async, Diagnostics and Performance
 
 # Chapter 14 : ASP.NET Core Razor
+
+## Chrome Dev Tools
+
+Open Dev Tools with 
+
+	Command - Alt - I
+	F12
+	Control - Shift - I
+
+Networking Tab
+
+Reload the page
+
+### ASP
+
+1996
+
+### ASP.NET Web Forms
+
+2002
+
+Used in Sharepoint
+
+### WCF
+
+2006
+
+SOAP (complex, avoid)
+
+REST
+
+### ASP.NET MVC
+
+2009
+
+### ASP.NET WEB API
+
+2012
+
+HTTP REST simpler than SOAP
+
+### ASP.NET SIGNALR 
+
+2013
+
+Real time communication via 
+
+WebSockets
+
+Long Polling
+
+### ASP.NET Core
+
+2016
+
+MVC + WEB API + SignalR on .NET Core
+
+Kestrel Web Server
+
+	Open source
+
+	Cross platform
+
+Walkthrough 
+
+New Visual Studio 2017, ASP.NET Core Web App, Empty Template
+
+or in VSCode
+
+```bash
+dotnet new web
+```
+
+Note that in .csproj file we have `.AspNetCore.All` which includes all `EFCore` and `ASP.NET Core` dependencies.
+
+Now add `index.html` file to the `wwwroot` folder
+
+Also in `Startup.cs` configure out the method which returns `Hello World` and instead add
+
+```csharp
+app.UseStaticFiles();
+```
+
+now if we run the site and manually append `/index.html` to the end of the running URL, the site will be visible.
+
+and if we now add on the line before this code also
+
+```csharp
+app.UseDefaultFiles();
+```
+
+Razor pages have .cshtml which can combine C# with HTML
+
+To use Razor, create a folder called `Pages` and move the `index.html` file into that folder out of the wwwroot folder
+
+Also add MVC in `Startup.cs`
+
+```csharp
+public void ConfigureServices(...){
+	services.AddMvc();
+}
+```
+
+also add 
+
+```csharp
+app.UseMvc();
+```
+
+Now modify `index.cshtml` to include the following
+
+```csharp
+@page
+@functions{
+	public 
+}
+```
+
+### Summary So Far
+
+```bash
+# create new application
+dotnet new web
+```
+
+```xml
+<!-- add wwwroot folder -->
+<Folder Include="wwwroot" />
+```
+
+```bash
+mkdir wwwroot
+touch index.html 
+```
+
+Allow using static files
+
+```csharp
+app.UseStaticFiles();
+```
+
+We can now manually enter /index.html and find our page
+
+```csharp
+// now will find index.html by default
+app.UseDefaultFiles();
+app.UseStaticFiles();
+```
+
+Add MVC Razor
+
+```csharp
+// in ConfigureServices()
+services.AddMvc();
+// in Configure()
+app.UseMvc();
+```
+
+Now create Razor page
+
+```csharp
+@page
+@functions{
+  public string DayName{get;set;}
+  public void OnGet(){
+  	Model.DayName=DateTime.Now.ToString("dddd");
+  }
+}
+```
+
+```xml
+<!-- will display Model field -->
+<p>@Model.DayName</p>
+```
+
+### MVC Layouts
+
+Layouts have a default layout for all pages called `_ViewStart.cshtml`
+
+Create a new `MVC View Start Page` in Pages folder
+
+
+
 
 ## Tutorial : Building An App using ASP.NET Core Razor
 
