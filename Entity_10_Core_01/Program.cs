@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 
-namespace Entity_10_Core_01
+namespace EFCore_01_VS_SQL
 {
     class Program
     {

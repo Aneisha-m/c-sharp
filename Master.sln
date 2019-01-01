@@ -413,7 +413,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Entity_09_LINQ_to_XML", "En
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Razor_01", "razor_01\Razor_01.csproj", "{16612209-D2E6-44C8-9167-9C56A2A3E1A4}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Entity_10_Core_01", "Entity_10_Core_01\Entity_10_Core_01.csproj", "{51BCD8BB-EC75-4629-95C3-181C724D654A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EFCore_01_VS_SQL", "Entity_10_Core_01\EFCore_01_VS_SQL.csproj", "{51BCD8BB-EC75-4629-95C3-181C724D654A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
