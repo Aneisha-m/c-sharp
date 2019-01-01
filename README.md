@@ -765,6 +765,8 @@ for (int i=0;i<byteArray.Length;i++){
 WriteLine(${Convert.ToBase64String(byteArray)});
 ```
 
+
+
 # Chapter 11 : Entity Core, SQL, SQLite, 
 
 Try this code to connect to a database, after Entity has been added to the project
@@ -785,6 +787,147 @@ using (var db = new Northwind()) {
 
 
 ```
+
+Let's work through EFCore with SQL using Visual Studio
+
+```bash
+# install EFCore SQL binaries
+install-package Microsoft.EntityFrameworkCore.SqlServer -ProjectName EFCore_01
+```
+
+## EF Core uses
+
+### Conventions
+
+```csharp
+class Products{
+	DbSet<T>
+}
+```
+
+###	Annotation Attributes
+
+```csharp
+[Required]
+[StringLength(40)]
+public string ProductName{get;set;}
+```
+
+### FluentAPI
+
+```csharp
+class Northwind{
+	modelBuilder.Entity<product>()
+		.Property(product=>product.ProductName)
+		.IsRequired()
+		.HasMaxLength(40);
+}
+```
+
+Build 3 classes : Northwind.cs, Category,cs and Product.cs
+
+Here is the working code which queries Northwind database for two classes, Category and Product, using SQL with Visual Studio.  Note that later on is some more well-commented code.
+
+```csharp
+using System;
+using static System.Console;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
+using System.Linq;
+
+namespace Entity_10_Core_01
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            QueryingCategories();
+        }
+
+        static void QueryingCategories()
+        {
+            using (var db = new Northwind())
+            {
+                var categories = db.Categories.Include(category => category.Products);
+                foreach(Category c in categories)
+                {
+                    WriteLine($"{c.CategoryID}{c.CategoryName} has {c.Products.Count} products");
+                }
+
+            }
+        }
+    }
+
+    public class Category
+    {
+        public int CategoryID { get; set; }
+        public string CategoryName { get; set; }
+        public string Description { get; set; }
+        public virtual ICollection<Product> Products { get; set; }
+
+        public Category()
+        {
+            this.Products = new List<Product>();
+        }
+    }
+
+    public class Product
+    {
+        public int ProductID { get; set; }
+        public string ProductName { get; set; }
+        public int? CategoryID { get; set; }
+        public virtual Category Category { get; set; }
+        public string QuantityPerUnit { get; set; }
+        public decimal? UnitPrice { get; set; } = 0;
+        public short? UnitsInStock { get; set; } = 0;
+        public short? UnitsOnOrder { get; set; } = 0;
+        public short? ReorderLevel { get; set; } = 0;
+        public bool Discontinued { get; set; } = false;
+    }
+
+    public class Northwind : DbContext
+    {
+        public DbSet<Category> Categories { get; set; }
+
+        public DbSet<Product> Products { get; set; }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSqlServer(@"Data Source=(localdb)\mssqllocaldb;" + "Initial Catalog=Northwind;" + "Integrated Security = true;" + "MultipleActiveResultSets=true;");
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<Category>()
+                .Property(c => c.CategoryName)
+                .IsRequired()
+                .HasMaxLength(15);
+
+            // define a one-to-many relationship
+            modelBuilder.Entity<Category>()
+                .HasMany(c => c.Products)
+                .WithOne(p => p.Category);
+
+            modelBuilder.Entity<Product>()
+                .Property(c => c.ProductName)
+                .IsRequired()
+                .HasMaxLength(40);
+
+            modelBuilder.Entity<Product>()
+                .HasOne(p => p.Category)
+                .WithMany(c => c.Products);
+
+        }
+    }
+}
+```
+
+
+
 
 
 
@@ -1555,11 +1698,25 @@ Now create Razor page
 <p>@Model.DayName</p>
 ```
 
+
 ### MVC Layouts
 
 Layouts have a default layout for all pages called `_ViewStart.cshtml`
 
-Create a new `MVC View Start Page` in Pages folder
+Create a new `MVC View Start Page` in Pages folder called `_Layout.cshtml`
+
+
+### ViewData
+
+ViewData is a dictionary whose key is a string.  We can use this dictionary to store values for our application
+
+In the Suppliers.cshtml.cs page we can add in the OnGet() method
+
+```csharp
+ViewData["Title"]="Some title";
+```
+
+### Summary so far - re-building an ASP.NET Core web app with SQL and Visual Studio
 
 
 

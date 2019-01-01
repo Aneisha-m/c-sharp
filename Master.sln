@@ -413,6 +413,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Entity_09_LINQ_to_XML", "En
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Razor_01", "razor_01\Razor_01.csproj", "{16612209-D2E6-44C8-9167-9C56A2A3E1A4}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Entity_10_Core_01", "Entity_10_Core_01\Entity_10_Core_01.csproj", "{51BCD8BB-EC75-4629-95C3-181C724D654A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -1239,6 +1241,10 @@ Global
 		{16612209-D2E6-44C8-9167-9C56A2A3E1A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{16612209-D2E6-44C8-9167-9C56A2A3E1A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{16612209-D2E6-44C8-9167-9C56A2A3E1A4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{51BCD8BB-EC75-4629-95C3-181C724D654A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{51BCD8BB-EC75-4629-95C3-181C724D654A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{51BCD8BB-EC75-4629-95C3-181C724D654A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{51BCD8BB-EC75-4629-95C3-181C724D654A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

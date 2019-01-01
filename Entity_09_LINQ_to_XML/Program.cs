@@ -43,15 +43,15 @@ namespace Entity_09_LINQ_to_XML
                 WriteLine("\n\nNow reading it back as XML");
                 XDocument doc2 = XDocument.Load("document.xml");
 
-                var xmlOutput = doc2.Descendants("products").Descendants("product").Select(node => new
-                {
-                    ID = node.Attribute("ID").Value,
-                    Price = node.Attribute("Price").Value
-                }).ToArray();
+                //var xmlOutput = doc2.Descendants("products").Descendants("product").Select(node => new
+                //{
+                //    ID = node.Attribute("ID").Value,
+                //    Price = node.Attribute("Price").Value
+                //}).ToArray();
 
-                XDocument doc3 = new XDocument(xmlOutput);
-                doc3.Save("doc3.xml");
-                WriteLine(File.ReadAllText("doc3.xml"));
+                //XDocument doc3 = new XDocument(xmlOutput);
+                //doc3.Save("doc3.xml");
+                //WriteLine(File.ReadAllText("doc3.xml"));
 
 
                 // note at this point code is incomplete as don't really fully read back the document correctly 
