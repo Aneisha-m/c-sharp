@@ -12,3 +12,16 @@ Although I wasn't following the book for the Northwind files so the end result i
 
 Phil Anderson
 January 2019
+
+Update 2/1/2019
+
+I have removed all unnecessary packages from the using; statements at the top of the code.
+
+Also the Nuget packages which are required are as follows :
+
+Microsoft.AspNetCore.All
+
+Microsoft.NETCore.App
+
+Microsoft.VisualStudio.Web.CodeGeneration.Design
+

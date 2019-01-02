@@ -1815,6 +1815,41 @@ namespace EFCore_01_VS_SQL
 }
 ```
 
+### Summary So Far : ASP.NET Core Empty Website with local array using Visual Studio
+
+New project, Empty ASP.NET Core website
+
+### ViewData
+
+Exposes a Dictionary whose index is the string to be displayed
+
+### Viewbag - don't use this!
+
+Viewbag exposes dynamic fields ie object type
+
+Is an array of strings
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ## Tutorial : Building An App using ASP.NET Core Razor
 
