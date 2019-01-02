@@ -76,6 +76,11 @@ GetCurrentProcess().VirtualMemorySize64
 
 Code for the book is found here [https://github.com/markjprice/cs7dotnetcore2](https://github.com/markjprice/cs7dotnetcore2)
 
+[C# for absolute beginners at Microsoft MVA Virtual Academy with Bob Tabor](https://mva.microsoft.com/en-us/training-courses/c-fundamentals-for-absolute-beginners-16169)
+
+[The New Boston has over 200 videos on C# which are excellent and to the point, a little older now but great for getting going](https://www.youtube.com/playlist?list=PL0EE421AE8BCEBA4A)
+
+
 # Chapter 1 : Visual Studio, VSCode, Windows, MAC, Linux, .NET, .NET Framework, .NET Core, .NET Standard, .NET Native
 
 ### IDE
@@ -1862,10 +1867,30 @@ The Func<T1,T2>() delegate accepts a method which accepts one type as an input a
 
 See LINQ for a worked example
 
+### Lambda
 
-XNA
+Lambdas are a brief way of writing a method.
 
-## DeleteMeRandomRevision
+One advantage of Lambdas is that particularly when we are executing a loop they can perform quick one-line method calcuations to obtain results very quickly and easily.
+
+For example if we have an array with some elements null
+
+```csharp
+string[] myArray = { "a", "b", "c", null, "e"};
+```
+
+we can clone this array and remove null items very easily with Lambda
+
+```csharp
+var clone01 = myArray.Where(item => item != null);
+```
+
+or removing items which are null or "" (empty strings)
+
+```csharp
+var clone02 = myArray.Where(item => !string.IsNullOrEmpty(item));
+```
 
 
 
+### XNA
