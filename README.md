@@ -1536,57 +1536,46 @@ Networking Tab
 
 Reload the page
 
-### ASP
+## History of Microsoft Web Pages
 
-1996
+* ASP 1996
 
-### ASP.NET Web Forms
+* ASP.NET Web Forms 2002
 
-2002
+	Used in Sharepoint
 
-Used in Sharepoint
+* WCF 2006
 
-### WCF
+	SOAP (complex, avoid)
 
-2006
+	REST
 
-SOAP (complex, avoid)
+* ASP.NET MVC 2009
 
-REST
+* ASP.NET WEB API 2012
 
-### ASP.NET MVC
+	HTTP REST simpler than SOAP
 
-2009
+* ASP.NET SignalR 2013
 
-### ASP.NET WEB API
+	Websockets
 
-2012
+	Long Polling
 
-HTTP REST simpler than SOAP
+* ASP.NET Core 2016
 
-### ASP.NET SIGNALR 
+	MVC
+	Web API
+	SignalR
 
-2013
-
-Real time communication via 
-
-WebSockets
-
-Long Polling
-
-### ASP.NET Core
-
-2016
-
-MVC + WEB API + SignalR on .NET Core
-
-Kestrel Web Server
-
+* Kestrel Web Server
+	
 	Open source
 
-	Cross platform
+	Cross Platform
 
-Walkthrough 
+
+### ASP.NET Core Walkthrough 
 
 New Visual Studio 2017, ASP.NET Core Web App, Empty Template
 
