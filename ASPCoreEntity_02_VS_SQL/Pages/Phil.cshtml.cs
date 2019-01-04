@@ -15,7 +15,7 @@ namespace ASPCoreEntity_02_VS_SQL.Pages
         }
     }
 
-    public class Northwind : DBContext
+    public class Northwind //: DBContext
     {
 
     }
