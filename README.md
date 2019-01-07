@@ -82,6 +82,7 @@ Code for the book is found here [https://github.com/markjprice/cs7dotnetcore2](h
 
 [The New Boston has over 200 videos on C# which are excellent and to the point, a little older now but great for getting going](https://www.youtube.com/playlist?list=PL0EE421AE8BCEBA4A)
 
+If you are interested in diving into C# here is an amazing bite-sized set of tutorials and lessons [https://csharp.2000things.com/index](https://csharp.2000things.com/index)
 
 # Chapter 1 : Visual Studio, VSCode, Windows, MAC, Linux, .NET, .NET Framework, .NET Core, .NET Standard, .NET Native
 
