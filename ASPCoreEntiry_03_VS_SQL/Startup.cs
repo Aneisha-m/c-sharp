@@ -34,6 +34,7 @@ namespace ASPCoreEntiry_03_VS_SQL
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseDefaultFiles();
             app.UseMvc();
         }
     }

@@ -419,9 +419,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ASPCore_01_VS", "ASPCore_01
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ASPCoreEntity_02_VS_SQL", "ASPCoreEntity_02_VS_SQL\ASPCoreEntity_02_VS_SQL.csproj", "{2A17A341-B3B9-4C86-B7E2-FE7B1B08EFC3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ASPCoreEntity_03_VS_SQL", "ASPCoreEntiry_03_VS_SQL\ASPCoreEntity_03_VS_SQL.csproj", "{5AE4DB80-B954-455A-880B-D29D0E2B1954}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ASPCoreEntity_03_VS_SQL", "ASPCoreEntiry_03_VS_SQL\ASPCoreEntity_03_VS_SQL.csproj", "{5AE4DB80-B954-455A-880B-D29D0E2B1954}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ASPCoreEntity_03_Data", "ASPCoreEntiry_03_Data\ASPCoreEntity_03_Data.csproj", "{749A9569-BE42-49DD-9E86-B61F1B08FEFC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ASPCoreEntity_03_Data", "ASPCoreEntiry_03_Data\ASPCoreEntity_03_Data.csproj", "{749A9569-BE42-49DD-9E86-B61F1B08FEFC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -25,8 +25,6 @@ namespace ASPCoreEntity_03_Data
                 .Property(customer => customer.CustomerID)
                 .IsRequired()
                 .HasMaxLength(40);
-
         }
-
-
     }
+}
