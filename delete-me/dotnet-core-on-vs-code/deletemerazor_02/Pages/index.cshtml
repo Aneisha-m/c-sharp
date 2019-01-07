@@ -1,0 +1,10 @@
+@page
+@functions{
+    public string DayName{get;set;}
+    public void OnGet(){
+        Model.DayName=DateTime.Now.ToString("dddd");
+    }
+}
+<html>
+ <h1>Hello From Philip. Today is @Model.DayName ..</h1>
+</html>
