@@ -6,11 +6,13 @@ Neither of these courses are particularly fresh or current so I have created a f
 
 [Random Terms](#random-terms)
 
-Bower - client-side package manager
-
 Gulp - repetitive task manager
 
 Webpack - compiles, transpiles and bundles source code
+
+Tuples are small, lightweight, custom-made objects that make it easier to return one object as the result of an operation.  For example if a method returns one object we can create a tuple to be the return type.
+
+Tuples always existed but now we can also name the items within, and create faster struct ValueTuples which are mutable and all the fields are public, like a struct
 
 [ToDo](#to-do)
 
@@ -87,7 +89,7 @@ Code for the book is found here [https://github.com/markjprice/cs7dotnetcore2](h
 
 [MonoDevelop](http://monodevelop.com)
 
-[Amazon Cloud 9](https://aws.amazon.com/cloud9/?origin=c9io)
+[Cloud 9](https://aws.amazon.com/cloud9/?origin=c9io)
 
 [REPL.it](https://repl.it/repls)
 
@@ -115,17 +117,17 @@ Install the C# extension to provide intellisense
 
 .NET is open source and can be found here [https://github.com/dotnet](https://github.com/dotnet)
 
-Three libraries
+Libraries
 
-	.NET Framework
+	.NET Framework on Windows only
+
+	.NET Standard 2.0 is cross-platform
 
 	.NET Core
 
 	XAMARIN 
 
-.NET Standard 2.0 operates across all three platforms to provide uniformity
-
-.NET Framework is Windows only
+	.NET Native compiles AoT Ahead of Time to improve execution time
 
 [Mono Project](https://www.mono-project.com)
 
@@ -520,7 +522,9 @@ or we could use a constructor!!!
 
 ### Tuples
 
-Tuple is a custom object which can hold regular data types.  There are two ways to write and create tuples.
+Tuples are small, lightweight, custom-made objects that make it easier to return one object as the result of an operation.  For example if a method returns one object we can create a tuple to be the return type.
+
+Tuples always existed but now we can also name the items within, and create faster struct ValueTuples which are mutable and all the fields are public, like a struct
 
 To use tuples we can use a .NET Core project or in .NET Standard we must use the Nuget Package `ValueTuple`
 
@@ -545,6 +549,16 @@ WriteLine($"{tuple01.name} has age {tuple01.age}");
 // deconstruct
 (string name, int age) = tuple01;
 WriteLine($"{name} has age {age}");
+```
+
+### array.Aggregate 
+
+array.Aggregate can perform aggregate functions over an array eg sum the values
+
+```csharp
+var nums = new[]{1,2,3,4};
+var sum = nums.Aggregate( (a,b) => a + b);
+Console.WriteLine(sum); // output: 10 (1+2+3+4)
 ```
 
 
@@ -1362,9 +1376,7 @@ var query6 = myArray
 WriteLine(string.Join(", ", query6));
 ```
 
-### LINQ distinct
-
-We can now look at extracting distinct values from one or more sets of data
+### Distinct() : Eliminate duplicates
 
 ```csharp
 string[] array02 = { "three", "three", "four", "five", "six" };
@@ -1373,9 +1385,7 @@ WriteLine("\n\nFirstly extract only distinct values");
 WriteLine(string.Join(", ", array02.Distinct()));
 ```	
 
-### LINQ Union()
-
-This joins two sets and eliminates duplicates
+### Union() : join two sets then eliminate duplicates
 
 ```csharp
 string[] array01 = { "one", "two", "three", "four" };
@@ -1384,14 +1394,14 @@ WriteLine("\n\nNow Union() 2 arrays which eliminates duplicates");
 WriteLine(string.Join(", ", array01.Union(array02)));
 ```
 
-### LINQ Concat()
+### Concat() : Join 2 sets and keep all elements
 
 ```csharp
 WriteLine("\n\nNow Contat() which joins and keeps all elements");
 WriteLine(string.Join(", ", array01.Concat(array02)));
 ```
 
-### LINQ Intersect()
+### Intersect() : Only common members of 2 sets
 
 ```csharp
 WriteLine("\n\nIntersect shows items in both sets");
@@ -1400,7 +1410,7 @@ WriteLine(string.Join(", ", array01.Intersect(array02)));
 
 ### LINQ Except()
 
-### LINQ Zip()
+### LINQ Zip() : Create pairs from items 1, 2, 3 etc in two sets of data
 
 Zip is an unusual one but can be quite useful in that is matches the first two items, the next two, etc
 
@@ -1822,6 +1832,86 @@ Things to be aware of and learning points
 * use DbContext not DBContext
 
 * use non-static methods as we are instantiating the class in order to produce the results
+
+
+### Further Summary Of Work So Far : Clarification Of Libraries Etc
+
+```csharp
+using Microsoft.EntityFrameworkCore;
+// notice that it's DbContext with a little 'b'
+public class Northwind : DbContext{}
+```
+
+```csharp
+public class Customer 
+{
+    public string CustomerID { get; set; }
+    public string CompanyName { get; set; }
+    public string ContactName { get; set; }
+    public string ContactTitle { get; set; }
+    public string Address { get; set; }
+    public string City { get; set; }
+    public string Region { get; set; }
+    public string PostalCode { get; set; }
+    public string Country { get; set; }
+    public string Phone { get; set; }
+    public string Fax { get; set; }
+}
+```
+
+These are for working with SQL server
+
+```bash
+# first one is a critical one
+install-package Microsoft.EntityFrameworkCore.SqlServer -ProjectName xxx
+# not sure how critical these two are
+install-package Microsoft.EntityFrameworkCore.SqlServer.Design -ProjectName xxx
+install-package Microsoft.EntityFrameworkCore.SqlServer.Tools -ProjectName xxx
+```
+
+Futher develop Northwind class now
+
+```csharp
+public class Northwind : DbContext
+{
+    public DbSet<Customer> Customers { get; set; }
+
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        string path = System.IO.Path.Combine(System.Environment.CurrentDirectory, "Northwind.db");
+        optionsBuilder.UseSqlServer(@"Data Source=(localdb)\mssqllocaldb;" + "Initial Catalog=Northwind;" + "Integrated Security=true;" + "MultipleActiveResultSets=true;");
+    }
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<Customer>()
+            .Property(customer => customer.ContactName)
+            .IsRequired()
+            .HasMaxLength(40);
+        modelBuilder.Entity<Customer>()
+            .Property(customer => customer.CustomerID)
+            .IsRequired()
+            .HasMaxLength(40);
+
+    }
+}
+```
+
+Add Pages folder
+
+Add _ViewStart.cshtml 
+
+```bash
+@{
+    Layout = "_Layout";
+}
+```
+
+
+Add _Layout.cshtml 
+
+```bash
+
+```
 
 
 
