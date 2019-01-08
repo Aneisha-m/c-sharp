@@ -78,11 +78,12 @@ namespace ASPCoreEntiry_03_VS_SQL.Controllers
         [HttpPut("{id}")]
         public void Put(int id, [FromBody]string value)
         {
+            value = value ?? "WOLZA";
             CustomerNames = new List<string>();
             Customer SelectedCustomer;
             using (var db = new Northwind())
             {
-                SelectedCustomer = db.Customers.FirstOrDefault(c=>c.CustomerID=="WOLZA");
+                SelectedCustomer = db.Customers.FirstOrDefault(c=>c.CustomerID==value);
                 SelectedCustomer.ContactName = "Phil";
                 db.SaveChanges();
             }

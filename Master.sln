@@ -423,6 +423,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ASPCoreEntity_03_VS_SQL", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ASPCoreEntity_03_Data", "ASPCoreEntiry_03_Data\ASPCoreEntity_03_Data.csproj", "{749A9569-BE42-49DD-9E86-B61F1B08FEFC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ASPCoreEntiry_04_MS_SQL", "ASPCoreEntiry_04_MS_SQL\ASPCoreEntiry_04_MS_SQL.csproj", "{3BA78765-CC45-429C-917A-F70CCBBF5CD4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -1269,6 +1271,10 @@ Global
 		{749A9569-BE42-49DD-9E86-B61F1B08FEFC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{749A9569-BE42-49DD-9E86-B61F1B08FEFC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{749A9569-BE42-49DD-9E86-B61F1B08FEFC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3BA78765-CC45-429C-917A-F70CCBBF5CD4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3BA78765-CC45-429C-917A-F70CCBBF5CD4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3BA78765-CC45-429C-917A-F70CCBBF5CD4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3BA78765-CC45-429C-917A-F70CCBBF5CD4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
