@@ -7,8 +7,9 @@ using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using ASPCoreEntity_03_Data;
 
-namespace ASPCoreEntiry_04_MS_SQL
+namespace ASPEntityCore_04_VS_SQL
 {
     public class Program
     {

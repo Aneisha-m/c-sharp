@@ -1945,6 +1945,27 @@ Is an array of strings
 
 
 
+### Using LINQ Lambda to get data
+
+Instead of a traditional LINQ query we can use the following syntax
+
+```csharp
+// all customers
+Customers = db.Customers;
+// selection of customers
+Customers = db.Customers.Where(c => c.City == CustomerCity).ToList<Customer>();
+```
+
+### GroupBy
+
+To produce a list of customers grouped by City let's do the following
+
+```csharp
+
+```
+
+
+
 
 
 

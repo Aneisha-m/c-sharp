@@ -3,7 +3,7 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://localhost:18107/",
+      "applicationUrl": "http://localhost:18523/",
       "sslPort": 0
     }
   },
@@ -15,13 +15,13 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "ASPCoreEntiry_04_MS_SQL": {
+    "ASPEntityCore_04_VS_SQL": {
       "commandName": "Project",
       "launchBrowser": true,
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
-      "applicationUrl": "http://localhost:18108/"
+      "applicationUrl": "http://localhost:18524/"
     }
   }
 }
