@@ -10,6 +10,10 @@ namespace ASPCoreEntity_03_Data
     {
         public DbSet<Customer> Customers { get; set; }
 
+        public Northwind() { }
+
+        public Northwind(DbContextOptions options) : base(options) { }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             string path = System.IO.Path.Combine(System.Environment.CurrentDirectory, "Northwind.db");
@@ -17,14 +21,22 @@ namespace ASPCoreEntity_03_Data
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Customer>()
-                .Property(customer => customer.ContactName)
-                .IsRequired()
-                .HasMaxLength(40);
-            modelBuilder.Entity<Customer>()
-                .Property(customer => customer.CustomerID)
-                .IsRequired()
-                .HasMaxLength(40);
+            base.OnModelCreating(modelBuilder);
+
+            //modelBuilder.Entity<Customer>()
+            //    .Property(customer => customer.ContactName)
+            //    .IsRequired()
+            //    .HasMaxLength(30);
+            //modelBuilder.Entity<Customer>()
+            //    .Property(customer => customer.CustomerID)
+            //    .IsRequired()
+            //    .HasMaxLength(5);
+            //modelBuilder.Entity<Customer>()
+            //    .Property(customer => customer.CompanyName)
+            //    .IsRequired()
+            //    .HasMaxLength(40);
         }
+
+
     }
 }

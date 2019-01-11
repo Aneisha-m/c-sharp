@@ -11,19 +11,17 @@ namespace ASPEntityCore_04_VS_SQL.Pages
 {
     public class Entity02Model : PageModel
     {
-
         public IEnumerable<Customer> Customers { get; set; }
         public IEnumerable<Customer> CustomerSubset { get; set; }
         public IEnumerable<Customer> CustomersByCity { get; set; }
-
         public string CustomerCity { get; set; }
 
         public void OnGet()
         {
+            ViewData["Title"] = "Customer List";
             Customers = new List<Customer>();
             CustomerSubset = new List<Customer>();
             CustomerCity = "Berlin";
-
             using (var db = new Northwind())
             {
                 Customers = (from c in db.Customers select c).ToList<Customer>();

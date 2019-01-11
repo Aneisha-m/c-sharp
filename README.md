@@ -1933,6 +1933,19 @@ Add _Layout.cshtml
 
 Exposes a Dictionary whose index is the string to be displayed
 
+```csharp
+public void OnGet(){
+	ViewData["Title"]="Some Title";
+}
+```
+
+```html
+<h1>@ViewData["Title"]</h1>
+```
+
+
+
+
 ### Viewbag - don't use this!
 
 Viewbag exposes dynamic fields ie object type
@@ -1967,6 +1980,117 @@ To produce a list of customers grouped by City let's do the following
 
 
 
+### Inserting A New Record Using ASP Entity Core
+
+Let's see if we can now insert a new record into our database from our web page
+
+Let's add a form at the bottom of the page
+
+Before we can do this though we need to go back and rebuild everything from scratch so here goes
+
+Working from Chapter 14 onwards
+
+Create a new .cshtml with accompanying .cs page - let's call this one Entity03.cshtml
+
+
+Entity03.cshtml.cs
+
+```csharp
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+
+namespace ASPEntityCore_04_VS_SQL.Pages
+{
+    public class Entity03Model : PageModel
+    {
+        public IEnumerable<string> Customers { get; set; }
+
+        public void OnGet()
+        {
+            ViewData["Title"] = "Customers Page";
+            Customers = new[] { "first", "second", "third" };
+        }
+    }
+}
+```
+
+Entity03.cshtml
+
+```html
+@page
+@model Entity03Model
+@{
+}
+<h1>@ViewData["Title"]</h1>
+<ol>
+    @foreach (string customer in Model.Customers)
+    {
+        <li>@customer</li>
+    }
+</ol>
+```
+
+This produces a local list of customers 
+
+Let's now connect to Northwind.
+
+In Entity03Model.cshtml.cs add the following
+
+```csharp
+using ASPCoreEntity_03_Data;
+```
+
+and in the class `public class Entity03Model : PageModel` add
+
+```csharp
+private Northwind db;
+```
+
+and add a constructor
+
+```csharp
+public Entity03Model(Northwind injectedContext){
+	db = injectedContext;
+}
+```
+
+We can now in the OnGet() method invoke the Northwind database and get out data
+
+```csharp
+public void OnGet()
+{
+    ViewData["Title"] = "Customers Page";
+    //    Customers = new[] { "first", "second", "third" };
+    // Now we are outputting a very simple array of strings here
+    Customers = db.Customers.Select(c => c.ContactName).ToArray();
+}
+ ```
+
+
+Next in the Northwind class add this constructor which reads from the base class
+
+```csharp
+public class Northwind : DbContext{
+	// existing code 
+	// default constructor added in 
+	public Northwind(){}
+	// new constructor added int
+	public Northwind(DbContextOptions options) : base(options) { }	
+}
+```
+
+also 
+
+```csharp
+protected override void OnModelCreating(ModelBuilder modelBuilder) {
+   base.OnModelCreating(modelBuilder);
+}
+```
+
 
 
 
@@ -1987,6 +2111,41 @@ To produce a list of customers grouped by City let's do the following
 https://docs.microsoft.com/en-us/aspnet/core/tutorials/razor-pages/razor-pages-start
 
 # Chapter 15 : ASP.NET Core MVC, Testing, Config, Authentication, Routes, Models, Views, Controllers, 
+
+
+## MVC
+
+### New MVC App
+
+Visual Studio, New Web Core App with MVC, individual user authentication stored in app
+
+	wwwroot 	Static Content
+
+	Data 		ASP Identity : Authentication + Authorisation
+
+	Dependencies
+
+	Nuget 		Check out .csproj file
+
+	Models 		Database tables
+
+					Actions will fetch model and pass to view
+
+	View  		.cshtml files
+
+	Services 	
+
+	Extensions
+
+	appsettings.json 	load settings
+
+	bower.json 			client-side packages
+
+	Program.cs 			
+
+	Startup.cs
+
+
 
 # Chapter 16 : Web Services, Web Applications, Angular, React, REST API
 
