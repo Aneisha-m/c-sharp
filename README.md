@@ -2091,7 +2091,21 @@ protected override void OnModelCreating(ModelBuilder modelBuilder) {
 }
 ```
 
+Also to get Northwind to work correctly we have to inject the service.
 
+```csharp
+public class Startup
+{
+	...
+    // This method gets called by the runtime. Use this method to add services to the container.
+    public void ConfigureServices(IServiceCollection services)
+    {
+        services.AddMvc();
+        services.AddDbContext<Northwind>(options => options.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=Northwind;Trusted_Connection=True;MultipleActiveResultSets=true"));
+    }	
+```
+
+The code should now display names correctly from the database
 
 
 

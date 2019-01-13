@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using ASPCoreEntity_03_Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace ASPEntityCore_04_VS_SQL
 {
@@ -22,6 +24,7 @@ namespace ASPEntityCore_04_VS_SQL
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+            services.AddDbContext<Northwind>(options => options.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=Northwind;Trusted_Connection=True;MultipleActiveResultSets=true"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
