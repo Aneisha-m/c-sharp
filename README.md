@@ -2107,22 +2107,90 @@ public class Startup
 
 The code should now display names correctly from the database
 
+### Adding a Customer
+
+We can now try and add a customer to our page.
+
+In our .cshtml.cs page let's add a customer element
+
+```csharp
+public class Entity04_Add_CustomerModel : PageModel
+{
+    public IEnumerable<Customer> Customers { get; set; }
+    public Northwind db;
+
+    [BindProperty]
+    public Customer customer { get; set; }
+```
+And some code to deal with an HTML POST request
+
+```csharp
+public IActionResult OnPost()
+{
+    if (ModelState.IsValid)
+    {
+        db.Customers.Add(customer);
+        db.SaveChanges();
+        return RedirectToPage("/Entity04_Add_Customer");
+    }
+    return Page();
+}
+```
 
 
+This brings us to a great point where we can now use Northwind to read records and insert new ones.
 
+I want to develop this to bring relationships between different products etc 
 
+I also want to develop this to be able to update records as well.
 
-
-
-
-
-
-
-
+The book moves on to MVC at this point but I am keen to follow this through to get the full CRUD working for the RAZOR pages before we do the MVC, so we have a tutorial below to accomplish this using a different database.
 
 ## Tutorial : Building An App using ASP.NET Core Razor
 
-https://docs.microsoft.com/en-us/aspnet/core/tutorials/razor-pages/razor-pages-start
+[https://docs.microsoft.com/en-us/aspnet/core/tutorials/razor-pages/razor-pages-start](https://docs.microsoft.com/en-us/aspnet/core/tutorials/razor-pages/razor-pages-start)
+
+Let's see if we can follow this tutorial but use the Northwind Customers database instead???
+
+### Create Movie Project
+
+Create a new `ASP.NET Core Web Application` and choose `Web Application` from the second page
+
+### Create Movies class
+
+create this class
+
+```csharp
+public class Movie
+{
+    public int ID { get; set; }
+    public string Title { get; set; }
+    // note : setting this to date means the user is not required to enter time information
+    // also when displaying this field, only date information is supplied
+    [DataType(DataType.Date)]
+    public DateTime ReleaseDate { get; set; }
+    public string Genre { get; set; }
+    public decimal Price { get; set; }
+}
+```
+
+### Update Northwind
+
+We must now update Northwind class to include a DbSet<Movie> 
+
+```csharp
+
+```
+
+Create a `Pages\Movies` folder
+
+`Add` a new `Scaffolded Item` and choose `Razor Page with Entity CRUD`.
+
+Choose the `Movies` database with the `Northwind` database context
+
+This will update appsettings.json with the Northwind database connection string
+
+
 
 # Chapter 15 : ASP.NET Core MVC, Testing, Config, Authentication, Routes, Models, Views, Controllers, 
 

@@ -9,6 +9,7 @@ namespace ASPCoreEntity_03_Data
     public class Northwind : DbContext
     {
         public DbSet<Customer> Customers { get; set; }
+        public DbSet<Movie> Movies { get; set; }
 
         public Northwind() { }
 
