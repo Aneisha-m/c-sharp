@@ -9,12 +9,8 @@ namespace ArrayList_01
 {
     class Program
     {
-
-
-
         static void Main(string[] args)
         {
-
             ArrayList x = new ArrayList();
 
             x.Add("hi");
