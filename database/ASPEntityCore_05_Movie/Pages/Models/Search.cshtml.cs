@@ -11,11 +11,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace ASPEntityCore_05_Movie.Pages.Models
 {
-    public class IndexModel : PageModel
+    public class IndexModel2 : PageModel
     {
         private readonly ASPEntityCore_05_Movie.Models.ASPEntityCore_05_MovieContext _context;
 
-        public IndexModel(ASPEntityCore_05_Movie.Models.ASPEntityCore_05_MovieContext context)
+        public IndexModel2(ASPEntityCore_05_Movie.Models.ASPEntityCore_05_MovieContext context)
         {
             _context = context;
         }
@@ -28,7 +28,7 @@ namespace ASPEntityCore_05_Movie.Pages.Models
         [BindProperty(SupportsGet = true)]
         public string MovieGenre { get; set; }
 
-        public async Task OnGetAsync()
+        public async Task OnGetAsync2()
         {
             var movies = from m in _context.Movie
                          select m;
