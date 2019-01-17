@@ -2192,6 +2192,147 @@ This will update appsettings.json with the Northwind database connection string
 
 
 
+
+## Tutorial : Razor from scratch
+
+
+Introduction to Razor
+
+[https://docs.microsoft.com/en-us/aspnet/core/razor-pages/?view=aspnetcore-2.2&tabs=visual-studio](https://docs.microsoft.com/en-us/aspnet/core/razor-pages/?view=aspnetcore-2.2&tabs=visual-studio)
+
+
+Razor is part of ASP.NET Core MVC
+
+perhaps look at the MVC another time
+
+Let's create ASPRazor_01
+
+Startup.cs
+
+	Razor is enabled by adding it as a service
+
+```csharp
+services.AddMvc()
+```
+
+also
+
+```
+app.UseMvc()
+```
+
+.cshtml
+
+@page makes this into an MVC action which handles requests without going through a controller
+
+@page must be the first thing on a page
+
+We can use fields like @DateTime.Now
+
+We can expose Model fields in the .cs below
+
+```csharp
+public class Page : PageModel{
+	public string myProperty{get;set;}= "default value";
+	public void OnGet(){
+	  myProperty+=" on DateTime.Now";
+	}
+}
+```
+
+/ reaches Index.cshtml
+
+/Page reaches Page.cshtml
+
+/Folder/ reaches /Folder/Index.cshtml
+
+
+Razor is designed to make Model binding and Tag helpers all work 
+
+Startup.cs is used to initialize DbContext
+
+```csharp
+public void ConfigureServices...
+	services.addDbContext<AppDbContext>(options=>options.UseInMemoryDatabase("name"))
+```
+
+
+add data model in Data folder
+
+```csharp
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
+
+namespace ASPRazor_01.Data
+{
+    public class Customer
+    {
+        public int Id { get; set; }
+
+        [Required, StringLength(100)]
+        public string Name { get; set; }
+    }
+}
+```
+
+then add
+
+```csharp
+using Microsoft.EntityFrameworkCore;
+
+namespace ASPRazor_01.Data
+{
+    public class AppDbContext : DbContext
+    {
+        public AppDbContext(DbContextOptions options) : base(options) { }
+
+        public DbSet<Customer> Customers { get; set; }
+    }
+}
+```
+
+and
+
+```csharp
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using ASPRazor_01.Data;
+using System.ComponentModel.DataAnnotations;
+
+namespace ASPRazor_01.Pages
+{
+    public class CreateModel : PageModel
+    {
+        private readonly AppDbContext _db;
+
+        public CreateModel(AppDbContext db) {
+            _db = db;
+        }
+
+        [BindProperty]
+        public Customer Customer { get; set; }
+
+        public async Task<IActionResult> OnPostAsync()
+        {
+            if (!ModelState.IsValid)
+            {
+                return Page();
+            }
+            _db.Customers.Add(Customer);
+            await _db.SaveChangesAsync();
+            return RedirectToPage("/Index");
+        }
+    }
+}
+```
+
 # Chapter 15 : ASP.NET Core MVC, Testing, Config, Authentication, Routes, Models, Views, Controllers, 
 
 
