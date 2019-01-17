@@ -2193,6 +2193,159 @@ This will update appsettings.json with the Northwind database connection string
 
 
 
+
+
+## Tutorial : Contoso University App using ASP.NET Entity Core with Razor 
+
+[https://docs.microsoft.com/en-us/aspnet/core/data/ef-rp/intro](https://docs.microsoft.com/en-us/aspnet/core/data/ef-rp/intro)
+
+
+building in the /database folder
+
+
+### Contoso University 01
+
+This adds basic functionality for creating a Student model, reading students, adding, editing and deleting individual students.
+
+### Contoso University 02
+
+Adding in pagination
+
+Adding in search box
+
+Adding in sort the index by columns by clicking on that column
+
+
+### Contoso University 03
+
+This adds into the About page the ability to show enrolments grouped by date
+
+### Contoso Universiy 04
+
+This goes back to scratch and starts building again from scratch, now that I have proven I can build multiple copies of the app
+
+New Project, ASP.NET Core Web, Web Application
+
+Set up the menu items in Pages, Shared, _Layout 
+
+```html
+<li><a asp-page="/Students/Index">Students</a></li>
+<li><a asp-page="/Courses/Index">Courses</a></li>
+<li><a asp-page="/Enrollments/Index">Enrollments</a></li>
+<li><a asp-page="/Rooms/Index">Rooms</a></li>
+```
+
+Add `Models` folder and add these classes
+
+```csharp
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace ContosoUniversity.Models
+{
+    public class Course
+    {
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public int CourseID { get; set; }
+        public string Title { get; set; }
+        public int Credits { get; set; }
+
+        // shared : for every course it will have a number 
+        // of enrollments
+        public ICollection<Enrollment> Enrollments { get; set; }
+
+        public ICollection<Room> Rooms { get; set; }
+    }
+
+
+
+    public enum Grade
+    {
+        A, B, C, D, F
+    }
+
+    public class Enrollment
+    {
+        // unique
+        public int EnrollmentID { get; set; }
+        public Grade? Grade { get; set; }
+
+        // from others
+        public int CourseID { get; set; }
+        public int StudentID { get; set; }
+        public Course Course { get; set; }
+        public Student Student { get; set; }
+    }
+
+
+
+    public class Student
+    {
+        public int ID { get; set; }
+        public string LastName { get; set; }
+        public string FirstMidName { get; set; }
+        public DateTime EnrollmentDate { get; set; }
+
+        public ICollection<Enrollment> Enrollments { get; set; }
+    }
+
+    public class Room{
+        public int RoomID { get; set; }
+        public string RoomName { get; set; }
+        public DateTime OpenTime { get; set; }
+        public DateTime CloseTime { get; set; }
+    }
+}
+```
+
+### Scaffold the Students Database
+
+Right click on Pages/Students and choose Add, New Scaffolded Item.
+
+Choose `Student` Model
+
+Add a new context and amend it to read `ContosoUniversity.Models.SchoolContext`
+
+Repeat if necessary for `Courses` and `Enrollments`
+
+Now update `Program.cs`
+
+```csharp
+using ContosoUniversity.Models;
+using Microsoft.Extensions.DependencyInjection;
+
+// replace Main()
+
+public static void Main(string[] args)
+{
+    var host = CreateWebHostBuilder(args).Build();
+
+    using (var scope = host.Services.CreateScope())
+    {
+        var services = scope.ServiceProvider;
+
+        try
+        {
+            var context = services.GetRequiredService<SchoolContext>();
+            context.Database.EnsureCreated();
+        }
+        catch (Exception ex)
+        {
+            var logger = services.GetRequiredService<ILogger<Program>>();
+            logger.LogError(ex, "An error occurred creating the DB.");
+        }
+    }
+
+    host.Run();
+}
+
+```
+
+
+
+
+
+
 ## Tutorial : Razor from scratch
 
 
