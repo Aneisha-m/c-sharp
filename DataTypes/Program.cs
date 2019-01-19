@@ -21,6 +21,8 @@ namespace DataTypes
 
             float f = 1.23456789023456789F;  // F mandatory
             double d = 1.23456789023456789D;   // D optional
+            Console.WriteLine(double.MaxValue);
+            Console.WriteLine(double.MinValue);
             decimal dd = 1.2345678902345678901234M;  // M optional
             
 
