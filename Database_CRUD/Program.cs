@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Data;
 
 namespace Database_CRUD
 {
@@ -41,6 +42,22 @@ namespace Database_CRUD
                 {
                     // if success this should equal 1
                     int affected = command.ExecuteNonQuery();
+                }
+
+
+
+                // update with stored procedure
+
+                // SQL command is built with the named stored procedure 'UpdateCustomer'
+                using (var updatecustomercommand = new SqlCommand("UpdateCustomer", connection))
+                {
+                    // Using System.Data;
+                    updatecustomercommand.CommandType = CommandType.StoredProcedure;
+                    // add parameters
+                    updatecustomercommand.Parameters.AddWithValue("ID", FixedCustomer.CustomerID);
+                    updatecustomercommand.Parameters.AddWithValue("NewName", "Joe Bloggs Updated Name2");
+                    // run the update
+                    int affected = updatecustomercommand.ExecuteNonQuery();
                 }
 
 
