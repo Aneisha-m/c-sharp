@@ -13,13 +13,13 @@ namespace Database_03
         static void Main(string[] args)
         {
 
-            var Customers = new List<Customer>();
+                var Customers = new List<Customer>();
 
-            using (var connection = new SqlConnection(@"Data Source=(localdb)\mssqllocaldb;" +
-                "Initial Catalog=Northwind;Integrated Security=true;"))
-            {
+                using (var connection = new SqlConnection(@"Data Source=(localdb)\mssqllocaldb;" +
+                    "Initial Catalog=Northwind;Integrated Security=true;"))
+                {
 
-                connection.Open();
+                    connection.Open();
 
                 using (var command = new SqlCommand("select * from customers", connection))
                 {
