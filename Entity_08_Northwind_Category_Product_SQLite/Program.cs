@@ -104,7 +104,7 @@ namespace Entity_08_Northwind_Category_Product_SQLite
                 var doc = new XDocument(xml);
                 doc.Save("xmlOutput.xml");
                 WriteLine("Have saved the document as an XML file so reading it back");
-                WriteLine()
+                WriteLine();
 
 
 
