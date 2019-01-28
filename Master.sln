@@ -433,6 +433,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Database_CRUD", "Database_C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LINQ_10_Northwind", "LINQ_10_Northwind\EF-from-database\LINQ_10_Northwind.csproj", "{AEB40230-389B-4586-B3A0-52416445CBF0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LINQ_11_Lambda", "LINQ_11_Lambda\LINQ_11_Lambda.csproj", "{84D6B50D-40AF-4274-A258-2AC8B964658E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entity_Northwind_CRUD", "Entity_Northwind_CRUD\Entity_Northwind_CRUD.csproj", "{B97436AF-D9C6-4A56-ACE4-854045D85B12}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -1299,6 +1303,14 @@ Global
 		{AEB40230-389B-4586-B3A0-52416445CBF0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AEB40230-389B-4586-B3A0-52416445CBF0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AEB40230-389B-4586-B3A0-52416445CBF0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{84D6B50D-40AF-4274-A258-2AC8B964658E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{84D6B50D-40AF-4274-A258-2AC8B964658E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{84D6B50D-40AF-4274-A258-2AC8B964658E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{84D6B50D-40AF-4274-A258-2AC8B964658E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B97436AF-D9C6-4A56-ACE4-854045D85B12}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B97436AF-D9C6-4A56-ACE4-854045D85B12}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B97436AF-D9C6-4A56-ACE4-854045D85B12}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B97436AF-D9C6-4A56-ACE4-854045D85B12}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

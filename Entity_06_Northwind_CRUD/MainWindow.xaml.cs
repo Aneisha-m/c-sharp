@@ -62,16 +62,10 @@ namespace Lab_17_GUI_Database
         private void ListBox02_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
-
-
             c = ListBox02.SelectedItem as Customer;
-
 
             c.ContactName += "9";
             DBContext.SaveChanges();
-
-
-
 
             ListBox01.Items.Add(c.ContactName);
 

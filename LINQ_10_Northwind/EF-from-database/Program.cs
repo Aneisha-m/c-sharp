@@ -1,9 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Collections.Generic;
 
 namespace EF_from_database
 {
@@ -13,6 +10,21 @@ namespace EF_from_database
 
         static void Main(string[] args)
         {
+
+            Console.WriteLine("\n\nSelecting a database table\n");
+            using (var db = new NorthwindEntities())
+            {
+                var customers = db.Customers.ToList<Customer>();
+
+                foreach (Customer c in customers)
+                {
+                    Console.WriteLine($"{c.ContactName} has username {c.CustomerID} and lives in {c.City}");
+                }
+
+            }
+
+
+
             Console.WriteLine("\n\nSelecting All Customers\n");
             using (var db = new NorthwindEntities())
             {
