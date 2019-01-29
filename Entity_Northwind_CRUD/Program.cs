@@ -9,11 +9,11 @@ namespace Entity_Northwind_CRUD
     class Program
     {
         static void Main(string[] args)
-        {       
+        {
+            string customerid = "abcde";
+
             using (var db = new NorthwindEntities())
             {
-                string customerid = "Phil3";
-
                 Customer newCustomer = new Customer()
                 {
                     CustomerID = customerid,
@@ -45,7 +45,7 @@ namespace Entity_Northwind_CRUD
             using (var db = new NorthwindEntities())
             {
                 // obtain your selected customer
-                var selectedCustomer = db.Customers.Where(c => c.CustomerID == "Phil1").FirstOrDefault();
+                var selectedCustomer = db.Customers.Where(c => c.CustomerID == customerid).FirstOrDefault();
                 // now update
                 selectedCustomer.City = "Paris";
                 // save back to database
@@ -62,6 +62,26 @@ namespace Entity_Northwind_CRUD
                 }
             }
 
+            Console.WriteLine("\n\nNow let's delete our record\n");
+            using (var db = new NorthwindEntities())
+            {
+                // select customer
+                var selectedCustomer = db.Customers.Where(c => c.CustomerID == customerid).FirstOrDefault();
+                // remove customer from local DbContext copy of database
+                db.Customers.Remove(selectedCustomer);
+                // update database
+                db.SaveChanges();
+            }
+
+            Console.WriteLine("\n\nCheck record has been deleted\n\n");
+            using (var db = new NorthwindEntities())
+            {
+                var customers = db.Customers.ToList();
+                foreach (Customer c in customers)
+                {
+                    Console.WriteLine($"{c.CustomerID,-10}{c.ContactName,-40}{c.City,-20}");
+                }
+            }
         }
     }
 }
