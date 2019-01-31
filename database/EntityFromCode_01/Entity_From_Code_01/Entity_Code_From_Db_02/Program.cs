@@ -10,12 +10,30 @@ namespace Entity_Code_From_Db_02
     {
         static void Main(string[] args)
         {
-            // The code provided will print ‘Hello World’ to the console.
-            // Press Ctrl+F5 (or go to Debug > Start Without Debugging) to run your app.
-            Console.WriteLine("Hello World!");
-            Console.ReadKey();
+            using (var db = new SchoolModel())
+            {
+               var stud = new Student() { StudentName = "Bill" };
+            //    var test = new TestTable() { TestName = "Fred" };
+            //   db.Students.Add(stud);
+                
+          //      db.SaveChanges();
+            }
 
-            // Go to http://aka.ms/dotnet-get-started-console to continue learning how to build a console app! 
+
+
+            Console.WriteLine("Done");
+
+            using (var db = new SchoolModel())
+            {
+           //    var students = db.Students.ToList();
+
+            //    foreach (var s in students)
+            //    {
+            //        Console.WriteLine($"{s.StudentId} has name {s.StudentName}");
+            //    }
+
+            }
+
         }
     }
 }

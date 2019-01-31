@@ -10,7 +10,6 @@ namespace LINQ_11_Lambda
             Console.WriteLine("\n\n\nAll Customers\n");
             using (var db = new NorthwindEntities())
             {
-
                 var customers =
                     db.Customers.Where(c => c.CustomerID != null);
 
