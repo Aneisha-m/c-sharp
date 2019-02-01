@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.IO;
 
 namespace AsyncAndAwait_01
@@ -11,12 +8,11 @@ namespace AsyncAndAwait_01
     {
         static void Main(string[] args)
         {
-
-            // Note : also see Dispatcher_02
-
             Console.WriteLine("Control in main thread BEFORE ASYNC CALLED");
             ReadFileAsync();
+            ReadFileAsync2();
             Console.WriteLine("Control in main thread AFTER ASYNC CALLED");
+           // System.Threading.Thread.Sleep(5000);
         }
 
         private async static void ReadFileAsync()
@@ -34,7 +30,26 @@ namespace AsyncAndAwait_01
 
             Console.WriteLine("Control in Method AFTER ASYNC CALLED");
         }
+
+        static List<string> list = new List<string>();
+
+        private static async void ReadFileAsync2()
+        {
+            using (var reader = new StreamReader("abc.txt"))
+            {
+                while (true)
+                {
+                    string line = await reader.ReadLineAsync();
+                    if (line == null) { break; }
+                    list.Add(line);
+                }
+            }
+
+            foreach (string item in list)
+            {
+                Console.WriteLine(item);
+            }
+        }
+        
     }
-
-
 }
