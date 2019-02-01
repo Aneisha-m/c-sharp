@@ -437,6 +437,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LINQ_11_Lambda", "LINQ_11_L
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entity_Northwind_CRUD", "Entity_Northwind_CRUD\Entity_Northwind_CRUD.csproj", "{B97436AF-D9C6-4A56-ACE4-854045D85B12}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entity_10_WPF_Northwind", "Entity_10_WPF_Northwind\Entity_10_WPF_Northwind.csproj", "{5F45D1AC-8920-48A0-B148-09F57F6FD946}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -1311,6 +1313,10 @@ Global
 		{B97436AF-D9C6-4A56-ACE4-854045D85B12}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B97436AF-D9C6-4A56-ACE4-854045D85B12}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B97436AF-D9C6-4A56-ACE4-854045D85B12}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5F45D1AC-8920-48A0-B148-09F57F6FD946}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5F45D1AC-8920-48A0-B148-09F57F6FD946}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5F45D1AC-8920-48A0-B148-09F57F6FD946}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5F45D1AC-8920-48A0-B148-09F57F6FD946}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Collections.Generic;
 
 namespace Entity_03
 {
@@ -50,8 +51,8 @@ namespace Entity_03
         void populateListBox()
         {
             var customers =
-                from customer in DBContext.Customers
-                select customer;
+                (from customer in DBContext.Customers
+                 select customer).ToList<Customer>();
 
             listBox01.Items.Add("Customer List");
 
@@ -75,9 +76,9 @@ namespace Entity_03
             else
             {
                 var customers =
-                from customer in DBContext.Customers
-                where customer.City == cityName
-                select customer;
+                    (from customer in DBContext.Customers
+                        where customer.City == cityName
+                        select customer).ToList<Customer>();
 
                 listBox02.Items.Add(string.Format("Customer List For City {0}", cityName));
 
@@ -91,7 +92,8 @@ namespace Entity_03
 
         private void listBox01_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
+            var c = listBox01.SelectedItem;
+            
         }
     }
 }
