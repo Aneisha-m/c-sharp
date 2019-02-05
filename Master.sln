@@ -439,6 +439,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entity_Northwind_CRUD", "En
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entity_10_WPF_Northwind", "Entity_10_WPF_Northwind\Entity_10_WPF_Northwind.csproj", "{5F45D1AC-8920-48A0-B148-09F57F6FD946}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Serialize_JSON_Dot_Net", "Serialize_JSON_Dot_Net\Serialize_JSON_Dot_Net.csproj", "{728B8E06-F37D-4DAA-8BDE-312E99960FB4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XML_02", "XML_02\XML_02.csproj", "{8F2C452E-A8F1-4738-948E-62BD1FE8C625}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -1317,6 +1321,14 @@ Global
 		{5F45D1AC-8920-48A0-B148-09F57F6FD946}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5F45D1AC-8920-48A0-B148-09F57F6FD946}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5F45D1AC-8920-48A0-B148-09F57F6FD946}.Release|Any CPU.Build.0 = Release|Any CPU
+		{728B8E06-F37D-4DAA-8BDE-312E99960FB4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{728B8E06-F37D-4DAA-8BDE-312E99960FB4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{728B8E06-F37D-4DAA-8BDE-312E99960FB4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{728B8E06-F37D-4DAA-8BDE-312E99960FB4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8F2C452E-A8F1-4738-948E-62BD1FE8C625}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8F2C452E-A8F1-4738-948E-62BD1FE8C625}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8F2C452E-A8F1-4738-948E-62BD1FE8C625}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8F2C452E-A8F1-4738-948E-62BD1FE8C625}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -14,8 +14,6 @@ Tuples are small, lightweight, custom-made objects that make it easier to return
 
 Tuples always existed but now we can also name the items within, and create faster struct ValueTuples which are mutable and all the fields are public, like a struct
 
-[ToDo](#to-do)
-
 [Chapter 1 : Visual Studio, VSCode, Windows, MAC, Linux, .NET, .NET Framework, .NET Core, .NET Standard, .NET Native](#chapter-1-visual-studio-vscode-windows-mac-linux-net-net-framework-net-core-net-standard-net-native)
 
 [Chapter 2 : Variables](#chapter-2-variables)
@@ -53,8 +51,6 @@ Tuples always existed but now we can also name the items within, and create fast
 [Chapter 18 : XAMARIN, Mobile Apps, Mobile Forms](#)
 
 [Glossary](#)
-
-## To Do
 
 ## Random Terms
 

@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
@@ -42,8 +38,25 @@ namespace Serialize_Binary_01
             Console.WriteLine("But hidden field was not serialized so is blank");
             Console.WriteLine(instance02.getHidden());
 
+
+
+            IFormatter formatter2 = new BinaryFormatter();
+            using (var stream01 = new FileStream("MyFile.bin", FileMode.Create, FileAccess.Write, FileShare.None))
+            {
+                // create an instance which we are about to serialize (think 'flat pack a wardrobe')
+                var instance03 = new MyClass();
+                // serialize the instance into binary.  Then stream it to the binary file as a stream.
+                formatter2.Serialize(stream01, instance03);
+            }
+
+            using (var stream02 = File.OpenRead("MyFile.bin"))
+            {
+                // read back our data as a stream from the binary file, and convert it back into an instance of the MyClass and name it instance01
+                var instance04 = formatter2.Deserialize(stream02) as MyClass;
+            }
         }
     }
+
 
     // see https://docs.microsoft.com/en-us/dotnet/framework/serialization/basic-serialization
 
@@ -65,5 +78,16 @@ namespace Serialize_Binary_01
         }
     }
 
+    [Serializable]
+    class MyClass
+    {
+        [NonSerialized]
+        private int MyField;  // this field is not included
+        public string Property01 { get; set; }
+        public void DoThis()
+        {
+            // do something
+        }
+    }
 
 }

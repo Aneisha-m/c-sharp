@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Diagnostics;
 using System.Net;
 using System.IO;
 
@@ -17,21 +14,18 @@ namespace Http_Get_03
             Console.WriteLine("Control has returned to the main thread even though page has not yet arrived");
             System.Threading.Thread.Sleep(10);
             Console.WriteLine("Still no page - waiting . . . ");
-            Console.ReadLine();
+            Console.ReadKey();
             Console.WriteLine(File.ReadAllText("page01.html"));
-
-
+            Console.WriteLine("\n\nHit any key to load this page in a browser\n");
+            Console.ReadKey();
+            Process.Start("page01.html");
         }
-
         async static void GetPage()
         {
-            
             var pageRequest01 = WebRequest.Create("http://www.albahari.com/nutshell/code.html");
             pageRequest01.Proxy = null;
             using (var response01 = await pageRequest01.GetResponseAsync())
             {
-
-                
                 using (var stream01 = response01.GetResponseStream())
                 {
                     using (var fileStream01 = File.Create("page01.html"))
@@ -100,13 +94,9 @@ namespace Http_Get_03
                         Console.WriteLine(response01.ResponseUri);
                         Console.WriteLine(response01.SupportsHeaders);
                         Console.WriteLine(response01.ToString());
-                        Console.WriteLine();
-
-
+                        Console.WriteLine("\n\nPress and key to see this page");
                     }
                 }
-
-
             }
         }
     }

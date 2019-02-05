@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Runtime.Serialization;
-using System.Runtime.Serialization.Json;  // have to add reference to System.Runtime.Serialization first
+// have to add reference to System.Runtime.Serialization first
+using System.Runtime.Serialization.Json;  
 using System.IO;
 
 namespace Serialize_DataContractJSON
@@ -13,8 +11,7 @@ namespace Serialize_DataContractJSON
     {
         static void Main(string[] args)
         {
-
-            BlogSite bsObj = new BlogSite()
+            BlogSite blogEntry = new BlogSite()
             {
                 Name = "C-sharpcorner",
                 Description = "Share Knowledge"
@@ -24,36 +21,41 @@ namespace Serialize_DataContractJSON
             // Create serialization object
             DataContractJsonSerializer js = new DataContractJsonSerializer(typeof(BlogSite));
             // Stream serialized object to Memory
-            MemoryStream msObj = new MemoryStream();
-            js.WriteObject(msObj, bsObj);
 
-            // Read object back
-            msObj.Position = 0;
-            StreamReader sr = new StreamReader(msObj);
-            // "{\"Description\":\"Share Knowledge\",\"Name\":\"C-sharpcorner\"}"  
-            string json = sr.ReadToEnd();
-            Console.WriteLine(json);
-            sr.Close();
-            msObj.Close();
+            // used to receive data back
+            // string json = 
+            // "{\"Description\":\"Share Knowledge\",\"Name\":\"C-sharpcorner\"}";
+            string json;
+
+            using (MemoryStream msObj = new MemoryStream()) {
+                // write object 
+                js.WriteObject(msObj, blogEntry);
 
 
+                // Read object back as a string (not deserializing here)
+                // Set initial position of pointer to start of memory stream
+                msObj.Position = 0;
+                // read the memory stream
+                using (var reader = new StreamReader(msObj))
+                {
+                    // "{\"Description\":\"Share Knowledge\",\"Name\":\"C-sharpcorner\"}"  
+                    // reading the JSON back as a string here
+                    json = reader.ReadToEnd();
+                    Console.WriteLine(json);
+                }
+            }
 
-            // Deserialize
-
-            // string json = "{\"Description\":\"Share Knowledge\",\"Name\":\"C-sharpcorner\"}";
+            // Now use deserialization
 
             Console.WriteLine("\n\n==DeSerializing JSON using DataContractSerializer==\n");
             using (var ms = new MemoryStream(Encoding.Unicode.GetBytes(json)))
             {
                 // Deserialization from JSON  
                 DataContractJsonSerializer deserializer = new DataContractJsonSerializer(typeof(BlogSite));
-                BlogSite bsObj2 = (BlogSite)deserializer.ReadObject(ms);
-                Console.WriteLine("Name: " + bsObj2.Name); // Name: C-sharpcorner
-                Console.WriteLine("Description: " + bsObj2.Description); // Description: Share Knowledge  
+                var blogEntry02 = (BlogSite)deserializer.ReadObject(ms);
+                Console.WriteLine("Name: " + blogEntry02.Name); // Name: C-sharpcorner
+                Console.WriteLine("Description: " + blogEntry02.Description); // Description: Share Knowledge  
             }
-
-
-
         }
     }
 
@@ -62,10 +64,7 @@ namespace Serialize_DataContractJSON
     {
         [DataMember]
         public string Name { get; set; }
-
         [DataMember]
         public string Description { get; set; }
     }
-
-
 }

@@ -12,14 +12,14 @@ namespace AsyncAndAwait_01
             ReadFileAsync();
             ReadFileAsync2();
             Console.WriteLine("Control in main thread AFTER ASYNC CALLED");
-           // System.Threading.Thread.Sleep(5000);
+            Console.ReadLine();
         }
 
         private async static void ReadFileAsync()
         {
             char[] buffer;
 
-            Console.WriteLine("Control in Method BEFORE ASYNC CALLED");
+            Console.WriteLine("Control in Method ReadFileAsync() BEFORE ASYNC CALLED");
 
             using (var reader = new StreamReader("abc.txt"))
             {
@@ -28,13 +28,15 @@ namespace AsyncAndAwait_01
             }
             Console.WriteLine(new String(buffer));
 
-            Console.WriteLine("Control in Method AFTER ASYNC CALLED");
+            Console.WriteLine("Control in Method ReadFileAsync() AFTER ASYNC CALLED");
         }
 
         static List<string> list = new List<string>();
 
         private static async void ReadFileAsync2()
         {
+            Console.WriteLine("Control in Method ReadFileAsync2() BEFORE ASYNC CALLED");
+
             using (var reader = new StreamReader("abc.txt"))
             {
                 while (true)
@@ -44,12 +46,11 @@ namespace AsyncAndAwait_01
                     list.Add(line);
                 }
             }
-
             foreach (string item in list)
             {
                 Console.WriteLine(item);
             }
-        }
-        
+            Console.WriteLine("Control in Method ReadFileAsync2() AFTER ASYNC CALLED");
+        } 
     }
 }
