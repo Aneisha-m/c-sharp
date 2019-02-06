@@ -39,7 +39,7 @@ namespace Http_Get_03
                         Console.WriteLine(pageRequest01.ContentLength);
                         Console.WriteLine(pageRequest01.ContentType);
                         Console.WriteLine(pageRequest01.Credentials);
-                        foreach(var item in pageRequest01.Headers)
+                        foreach (var item in pageRequest01.Headers)
                         {
                             Console.WriteLine(item.ToString());
                         }
@@ -80,7 +80,8 @@ namespace Http_Get_03
                             Console.WriteLine(item.ToString());
                         }
                         string[] headerInfo = response01.Headers.AllKeys;
-                        foreach (string key in headerInfo){
+                        foreach (string key in headerInfo)
+                        {
                             Console.WriteLine();
                             Console.WriteLine(key);
                             foreach (string value in response01.Headers.GetValues(key))
@@ -100,4 +101,134 @@ namespace Http_Get_03
             }
         }
     }
+
+
+    // NOTE: Generated code may require at least .NET Framework 4.5 or .NET Core/Standard 2.0.
+    /// <remarks/>
+    [System.SerializableAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
+    [System.Xml.Serialization.XmlRootAttribute(Namespace = "", IsNullable = false)]
+    public partial class Product
+    {
+
+        private decimal priceField;
+
+        private ProductOtherDetails otherDetailsField;
+
+        private byte idField;
+
+        private string nameField;
+
+        /// <remarks/>
+        public decimal Price
+        {
+            get
+            {
+                return this.priceField;
+            }
+            set
+            {
+                this.priceField = value;
+            }
+        }
+
+        /// <remarks/>
+        public ProductOtherDetails OtherDetails
+        {
+            get
+            {
+                return this.otherDetailsField;
+            }
+            set
+            {
+                this.otherDetailsField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public byte ID
+        {
+            get
+            {
+                return this.idField;
+            }
+            set
+            {
+                this.idField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string Name
+        {
+            get
+            {
+                return this.nameField;
+            }
+            set
+            {
+                this.nameField = value;
+            }
+        }
+    }
+
+    /// <remarks/>
+    [System.SerializableAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
+    public partial class ProductOtherDetails
+    {
+
+        private string brandNameField;
+
+        private string manufacturerField;
+
+        /// <remarks/>
+        public string BrandName
+        {
+            get
+            {
+                return this.brandNameField;
+            }
+            set
+            {
+                this.brandNameField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string Manufacturer
+        {
+            get
+            {
+                return this.manufacturerField;
+            }
+            set
+            {
+                this.manufacturerField = value;
+            }
+        }
+    }
+
+
+    public class Rootobject
+    {
+        public Post[] posts { get; set; }
+        public Profile profile { get; set; }
+    }
+
+    public class Profile
+    {
+        public string name { get; set; }
+    }
+
+    public class Post
+    {
+        public int id { get; set; }
+        public string title { get; set; }
+    }
+
 }
