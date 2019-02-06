@@ -1,6 +1,6 @@
-﻿using System;
-using System.Xml.Linq;
+﻿using System.Xml.Linq;
 using static System.Console;
+using System.Xml;
 
 namespace XML_01
 {
@@ -26,16 +26,40 @@ namespace XML_01
                 );
             WriteLine(xml);
 
+            // create an XML properly-formed document, but use the contents of our XML string to fill this document
+            var doc = new XDocument(XElement.Parse(xml.ToString()));
+            doc.Save("Data.xml");
+
             WriteLine("\n\nNow add attributes\n");
             xml = new XElement("test",
                 new XElement("subelement", 
                     new XAttribute("someattribute",11),1),
                 new XElement("subelement",
-                    new XAttribute("someattribute", 22), 1),
+                    new XAttribute("someattribute", 22), 2),
                 new XElement("subelement",
                     new XAttribute("someattribute", 33), 3)
                 );
             WriteLine(xml);
+
+
+            WriteLine("\n\nNow add sub-elements and attributes\n");
+            xml = new XElement("test",
+                new XElement("subelement",
+                    new XElement("subsubelement",44),
+                    new XAttribute("someattribute", 11)),
+                new XElement("subelement",
+                    new XAttribute("someattribute", 22), 2),
+                new XElement("subelement",
+                    new XAttribute("someattribute", 33), 3)
+                );
+            WriteLine(xml);
+
+            WriteLine("\n\nLoad back our XML from file Data.xml - as XML");
+            var doc2 = new XmlDocument();
+            doc2.Load("Data.xml");
+            WriteLine(doc2.InnerXml);
+
+
         }
     }
 }

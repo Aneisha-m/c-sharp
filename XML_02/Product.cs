@@ -6,14 +6,16 @@
 //     Manual changes to this file will be overwritten if the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
+using System.Xml;
+using System;
+using System.Xml.Serialization;
+
 
 namespace XML_02
 {
-    using System;
-    using System.Collections.Generic;
-    
     public partial class Product
     {
+        [XmlElement("ProductID")]
         public int ProductID { get; set; }
         public string ProductName { get; set; }
         public Nullable<int> SupplierID { get; set; }

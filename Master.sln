@@ -443,6 +443,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Serialize_JSON_Dot_Net", "S
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XML_02", "XML_02\XML_02.csproj", "{8F2C452E-A8F1-4738-948E-62BD1FE8C625}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XML_03", "XML_03\XML_03.csproj", "{72882946-5830-4ADC-A158-DB57E6D42239}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -1329,6 +1331,10 @@ Global
 		{8F2C452E-A8F1-4738-948E-62BD1FE8C625}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8F2C452E-A8F1-4738-948E-62BD1FE8C625}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8F2C452E-A8F1-4738-948E-62BD1FE8C625}.Release|Any CPU.Build.0 = Release|Any CPU
+		{72882946-5830-4ADC-A158-DB57E6D42239}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{72882946-5830-4ADC-A158-DB57E6D42239}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{72882946-5830-4ADC-A158-DB57E6D42239}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{72882946-5830-4ADC-A158-DB57E6D42239}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
