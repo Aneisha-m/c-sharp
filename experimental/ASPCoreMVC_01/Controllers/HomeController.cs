@@ -1,15 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using ASPCoreMVC_01.Models;
+using NorthwindLibrary;
 
 namespace ASPCoreMVC_01.Controllers
 {
     public class HomeController : Controller
     {
+        private NorthwindEntities db;
+
+        public HomeController(NorthwindEntities injectedContext)
+        {
+            db = injectedContext;
+        }
+
         public IActionResult Index()
         {
             return View();

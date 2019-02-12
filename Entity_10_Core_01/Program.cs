@@ -1,10 +1,7 @@
-﻿using System;
+﻿
 using static System.Console;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
-using System.Linq;
 
 namespace EFCore_01_VS_SQL
 {

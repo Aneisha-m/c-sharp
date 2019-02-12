@@ -2142,6 +2142,15 @@ I also want to develop this to be able to update records as well.
 
 The book moves on to MVC at this point but I am keen to follow this through to get the full CRUD working for the RAZOR pages before we do the MVC, so we have a tutorial below to accomplish this using a different database.
 
+
+
+
+
+
+
+
+
+
 ## Tutorial : Building An App using ASP.NET Core Razor
 
 [https://docs.microsoft.com/en-us/aspnet/core/tutorials/razor-pages/razor-pages-start](https://docs.microsoft.com/en-us/aspnet/core/tutorials/razor-pages/razor-pages-start)

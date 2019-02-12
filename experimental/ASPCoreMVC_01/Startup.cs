@@ -12,10 +12,11 @@ using Microsoft.EntityFrameworkCore;
 using ASPCoreMVC_01.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using NorthwindLibrary;
 
 namespace ASPCoreMVC_01
 {
-    public class Startup
+    public class    Startup
     {
         public Startup(IConfiguration configuration)
         {
@@ -37,6 +38,9 @@ namespace ASPCoreMVC_01
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddDbContext<DbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Northwind")));
+
             services.AddDefaultIdentity<IdentityUser>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
